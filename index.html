@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>БУМ! Квиз! — Нижний Новгород · клуб интеллектуальных развлечений</title>
+<meta name="description" content="БУМ! Квиз! — клуб интеллектуальных развлечений в Нижнем Новгороде: квиз-шоу под ключ, шоу-программа, ведущий, диджей и подарки от партнёров. 100+ гостей, 5 часов, одна суббота в месяц. Быть умным модно!">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23d21a5e'/%3E%3Cstop offset='1' stop-color='%23ff4d8d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-size='30' text-anchor='middle' font-family='Arial' font-weight='800' fill='white'%3EБ!%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f5f7;
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --hairline:rgba(0,0,0,.08);
+    --blue:#0071e3;
+    --accent:#d21a5e;             /* фирменная малиновая из логотипа БУМ */
+    --accent-2:#ff4d8d;
+    --glass:rgba(255,255,255,.55);
+    --glass-strong:rgba(255,255,255,.78);
+    --glass-border:rgba(255,255,255,.8);
+    --shadow:0 20px 60px rgba(31,26,20,.10);
+    --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+    --sans:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --logoFont:'Montserrat',var(--sans);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:100px}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#fff}
+  body::-webkit-scrollbar{width:10px}
+  body::-webkit-scrollbar-thumb{background:#c9c9ce;border-radius:99px}
+  .accent{color:var(--accent)}
+  .dmd{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex:none}
+  a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
+
+  /* ---------- живой градиентный фон ---------- */
+  .orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(180deg,#fbfbfd 0%,#f2f2f7 100%)}
+  .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.42;animation:float 26s ease-in-out infinite alternate}
+  .orb-1{width:560px;height:560px;background:#ffd0e0;top:-160px;left:-120px}
+  .orb-2{width:440px;height:440px;background:#f3c6f2;top:18%;right:-150px;animation-delay:-6s}
+  .orb-3{width:520px;height:520px;background:#b9c1fa;bottom:-200px;left:10%;animation-delay:-12s}
+  .orb-4{width:360px;height:360px;background:#ffd9e4;top:52%;right:6%;animation-delay:-18s}
+  @keyframes float{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(60px,-40px) scale(1.08)}
+    100%{transform:translate(-40px,50px) scale(.95)}
+  }
+
+  /* ---------- стекло ---------- */
+  .glass{
+    background:var(--glass);
+    -webkit-backdrop-filter:blur(24px) saturate(180%);
+    backdrop-filter:blur(24px) saturate(180%);
+    border:1px solid var(--glass-border);
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.9);
+  }
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+  section{padding:110px 0}
+
+  /* ---------- навигация-капсула ---------- */
+  .nav{
+    position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;
+    width:min(1140px,calc(100% - 24px));
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 12px 10px 22px;border-radius:999px;
+    transition:box-shadow .3s;
+  }
+  .nav.scrolled{box-shadow:0 12px 40px rgba(31,26,20,.16),inset 0 1px 0 rgba(255,255,255,.9)}
+
+  /* ---- логотип (CSS-реконструкция фирменного знака БУМ) ---- */
+  .logo{display:flex;flex-direction:column;gap:4px;text-decoration:none;line-height:1}
+  .logo-word{font-family:var(--logoFont);font-weight:800;font-size:20px;letter-spacing:.02em;color:var(--text);white-space:nowrap}
+  .logo-word .u{color:var(--accent);display:inline-block;transform:scale(1.14);transform-origin:50% 72%}
+  .logo-word i{color:var(--accent);font-style:normal}
+  .logo small{font-size:8px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600;transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .burger{display:none;background:rgba(255,255,255,.5);border:1px solid var(--hairline);border-radius:999px;cursor:pointer;padding:11px 13px;flex-direction:column;gap:5px}
+  .burger span{width:20px;height:2px;background:var(--text);border-radius:2px;transition:.3s;display:block}
+  .burger.open span:first-child{transform:translateY(3.5px) rotate(45deg)}
+  .burger.open span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+  .mobile-menu{
+    position:fixed;top:80px;left:16px;right:16px;z-index:99;border-radius:24px;
+    padding:12px;display:none;flex-direction:column;gap:2px;
+    transform:translateY(-10px);opacity:0;transition:.3s;pointer-events:none;
+  }
+  .mobile-menu.open{transform:none;opacity:1;pointer-events:auto}
+  .mobile-menu a{color:var(--text);text-decoration:none;font-weight:600;font-size:17px;padding:14px 16px;border-radius:14px;transition:background .2s}
+  .mobile-menu a:hover{background:rgba(255,255,255,.7)}
+
+  /* ---------- кнопки ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:13px 26px;font-weight:700;font-size:14.5px;text-decoration:none;cursor:pointer;border:0;transition:transform .2s,background .2s,box-shadow .2s;font-family:inherit}
+  .btn-solid{background:var(--text);color:#fff;box-shadow:0 8px 24px rgba(29,29,31,.22)}
+  .btn-solid:hover{transform:translateY(-1px);background:#000}
+  .btn-sm{padding:10px 20px;font-size:13.5px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:190px 0 90px;text-align:center;position:relative}
+  .badge{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--muted)}
+  .badge i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(210,26,94,.45)}70%{box-shadow:0 0 0 8px rgba(210,26,94,0)}100%{box-shadow:0 0 0 0 rgba(210,26,94,0)}}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,7.4vw,96px);line-height:1.06;letter-spacing:-.015em;margin:28px 0 0}
+  .h-italic{font-style:italic;font-weight:500}
+  .grad{background:linear-gradient(92deg,#d21a5e 10%,#ff4d8d 55%,#8b3aed);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+  @supports not (-webkit-background-clip:text){.grad{background:none;color:var(--accent)}}
+  .hero-lead{max-width:680px;color:var(--muted);font-size:18.5px;margin:28px auto 0}
+  .hero-lead b{color:var(--text);font-weight:700}
+  .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:60px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+  .scroll-cue i{width:1px;height:46px;background:rgba(0,0,0,.12);display:block;position:relative;overflow:hidden;border-radius:99px}
+  .scroll-cue i::after{content:'';position:absolute;left:0;top:-100%;width:100%;height:100%;background:var(--accent);animation:cueMove 1.9s ease-in-out infinite}
+  @keyframes cueMove{to{top:100%}}
+
+  .hero-strip{display:grid;grid-template-columns:repeat(4,1fr);max-width:920px;margin:56px auto 0;border-radius:26px;overflow:hidden}
+  .h-cell{padding:22px 18px;text-align:center}
+  .h-cell + .h-cell{border-left:1px solid var(--hairline)}
+  .h-k{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+  .h-v{font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+  .h-v b{color:var(--accent)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:34px}
+  .chip{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text)}
+  .chip .dmd{width:6px;height:6px}
+
+  /* ---------- заголовки секций ---------- */
+  .sec-head{text-align:center;max-width:740px;margin:0 auto}
+  .sec-label{font-size:11.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(32px,4.8vw,54px);line-height:1.1;letter-spacing:-.01em}
+  .sec-sub{color:var(--muted);max-width:620px;margin:18px auto 0;font-size:17px}
+
+  /* ---------- программа ---------- */
+  .track{border-radius:28px;overflow:hidden;max-width:960px;margin:52px auto 0}
+  .t-row{display:grid;grid-template-columns:64px 1fr auto;gap:22px;align-items:center;padding:24px 28px;transition:background .25s}
+  .t-row + .t-row{border-top:1px solid var(--hairline)}
+  .t-row:hover{background:rgba(255,255,255,.85)}
+  .t-num{font-size:12px;font-weight:700;color:var(--accent)}
+  .t-name{font-family:var(--serif);font-weight:600;font-size:20px;letter-spacing:-.01em}
+  .t-desc{color:var(--muted);font-size:14.5px;margin-top:4px;max-width:560px}
+  .t-time{font-size:12px;font-weight:700;border:1px solid var(--hairline);border-radius:999px;padding:7px 14px;color:var(--muted);white-space:nowrap;background:rgba(255,255,255,.5);transition:.25s}
+  .t-row:hover .t-time{border-color:var(--accent);color:var(--accent)}
+
+  .deposit-note{border-radius:26px;padding:26px 30px;display:flex;gap:20px;align-items:center;max-width:960px;margin:32px auto 0;text-align:left}
+  .ruble{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#d21a5e,#ff4d8d);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px;flex:none;box-shadow:0 10px 24px rgba(210,26,94,.35)}
+  .deposit-note p{color:var(--muted);font-size:15px}
+  .deposit-note b{color:var(--text)}
+
+  /* ---------- бенто-статистика ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:52px auto 0}
+  .stat{border-radius:26px;padding:34px 28px}
+  .stat-num{font-family:var(--serif);font-weight:700;font-size:clamp(44px,5vw,62px);letter-spacing:-.02em;line-height:1;display:block}
+  .stat-cap{color:var(--muted);font-size:13.5px;margin-top:12px;display:block}
+  .stat-accent{background:linear-gradient(135deg,#d21a5e,#ff4d8d);border:1px solid rgba(255,255,255,.35);box-shadow:0 20px 50px rgba(210,26,94,.35)}
+  .stat-accent .stat-num{color:#fff}
+  .stat-accent .stat-cap{color:rgba(255,255,255,.85)}
+
+  /* ---------- медиа: вкладки ---------- */
+  .tabs-wrap{display:flex;justify-content:center;margin-top:44px}
+  .tabs{display:inline-flex;gap:6px;padding:6px;border-radius:999px}
+  .tab{padding:11px 22px;border-radius:999px;font-weight:700;font-size:14.5px;color:var(--muted);cursor:pointer;border:0;background:transparent;transition:.25s;font-family:inherit;display:inline-flex;gap:8px;align-items:center}
+  .tab .cnt{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.06);color:var(--muted)}
+  .tab.active{background:var(--text);color:#fff;box-shadow:0 8px 24px rgba(29,29,31,.25)}
+  .tab.active .cnt{background:rgba(255,255,255,.18);color:#fff}
+
+  .panel{display:none}
+  .panel.active{display:block;animation:panelIn .5s cubic-bezier(.16,1,.3,1)}
+  @keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* видео */
+  .v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .v-card{cursor:pointer;text-align:left}
+  .v-thumb{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
+  .v-thumb iframe{position:absolute;left:50%;top:50%;width:180%;height:180%;transform:translate(-50%,-50%) scale(1.12);border:0;pointer-events:none}
+  .v-card:hover .v-thumb img{transform:scale(1.05)}
+  .v-play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.22);transition:transform .25s}
+  .v-card:hover .v-play{transform:scale(1.1)}
+  .v-play i{width:0;height:0;border:9px solid transparent;border-right:0;border-left:15px solid var(--text);margin-left:4px;display:block}
+  .v-dur{position:absolute;right:10px;bottom:10px;background:rgba(20,20,22,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px}
+  .v-card h4{margin-top:15px;font-weight:800;font-size:16.5px;letter-spacing:-.01em}
+  .v-card p{color:var(--muted);font-size:14px;margin-top:4px}
+
+  /* афиши */
+  .a-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+  .a-item{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:2/3;cursor:pointer;box-shadow:var(--shadow);border:1px solid var(--glass-border);transition:transform .3s}
+  .a-item:hover{transform:translateY(-5px)}
+  .a-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .a-item:hover img{transform:scale(1.05)}
+  .a-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:13px;font-weight:700}
+
+  .media-empty{border-radius:26px;padding:50px;text-align:center;color:var(--muted);margin-top:40px}
+
+  /* ---------- партнёрство (FAQ) ---------- */
+  .faq{max-width:760px;margin:44px auto 0}
+  .faq-item{border-bottom:1px solid var(--hairline)}
+  .faq-q{width:100%;background:none;border:0;color:var(--text);font-family:inherit;font-size:17px;font-weight:700;letter-spacing:-.01em;text-align:left;padding:22px 4px;display:flex;justify-content:space-between;align-items:center;gap:20px;cursor:pointer}
+  .faq-ic{color:var(--accent);font-size:26px;font-weight:400;line-height:1;transition:transform .3s;flex:none}
+  .faq-item.open .faq-ic{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq-a p{color:var(--muted);padding:0 4px 22px;max-width:640px}
+
+  /* ---------- контакты ---------- */
+  .co-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:52px auto 0}
+  .co-card{border-radius:26px;padding:30px 28px;text-align:left}
+  .co-k{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:12px}
+  .co-card h4{font-family:var(--serif);font-weight:600;font-size:21px;letter-spacing:-.01em}
+  .co-card p{color:var(--muted);font-size:14.5px;margin-top:10px}
+  .contact-list{margin-top:44px;display:flex;flex-wrap:wrap;gap:12px 36px;justify-content:center}
+  .contact-list a{color:var(--text);text-decoration:none;font-weight:700;font-size:17px;display:flex;gap:12px;align-items:center;transition:color .2s}
+  .contact-list a:hover{color:var(--accent)}
+
+  footer{padding:56px 0 48px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start;border-top:1px solid var(--hairline);padding-top:44px}
+
+  /* ---- полный логотип-блок в футере ---- */
+  .f-logo{display:inline-flex;flex-direction:column;gap:7px;text-decoration:none;line-height:1}
+  .f-word{font-family:var(--logoFont);font-weight:800;font-size:48px;color:var(--text);letter-spacing:.02em}
+  .f-word span{color:var(--accent)}
+  .f-slogan{font-family:var(--logoFont);font-weight:800;font-size:16.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .f-sub{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .foot-note{color:var(--muted);font-size:14.5px;max-width:400px;margin-top:14px}
+  .foot-copy{color:var(--muted);font-size:13px;margin-top:30px}
+
+  /* ---------- модалка ---------- */
+  .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;visibility:hidden;opacity:0;transition:opacity .3s,visibility .3s}
+  .modal.open{visibility:visible;opacity:1}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%)}
+  .modal-card{position:relative;background:var(--glass-strong);-webkit-backdrop-filter:blur(40px) saturate(180%);backdrop-filter:blur(40px) saturate(180%);border:1px solid var(--glass-border);box-shadow:0 40px 100px rgba(0,0,0,.25);border-radius:28px;max-width:920px;width:100%;max-height:90vh;overflow:auto;transform:translateY(26px) scale(.97);transition:transform .4s cubic-bezier(.16,1,.3,1);padding:16px}
+  .modal.open .modal-card{transform:none}
+  .modal-close{position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:var(--text);font-size:20px;cursor:pointer;transition:.2s;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+  .modal-close:hover{background:#fff;transform:scale(1.06)}
+  .lb-body iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:16px;display:block;background:#000}
+  .lb-body iframe.short{aspect-ratio:9/16;width:auto;height:72vh;margin:0 auto}
+  .lb-body img{display:block;max-width:100%;max-height:72vh;margin:0 auto;border-radius:16px}
+  .lb-cap{padding:16px 10px 8px;display:flex;flex-direction:column;gap:3px}
+  .lb-cap b{font-size:16.5px;font-weight:800;letter-spacing:-.01em}
+  .lb-cap span{color:var(--muted);font-size:14px}
+
+  /* ---------- тост ---------- */
+  .toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);opacity:0;background:rgba(29,29,31,.78);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);color:#fff;padding:14px 22px;border-radius:999px;font-weight:700;font-size:14.5px;z-index:300;transition:.35s;display:flex;gap:10px;align-items:center;pointer-events:none;white-space:nowrap;box-shadow:0 16px 50px rgba(0,0,0,.3)}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .toast-dot{width:9px;height:9px;border-radius:50%;background:#ffb0cd;flex:none}
+
+  /* ---------- появление при скролле ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+
+  /* ---------- адаптив ---------- */
+  @media (max-width:1000px){
+    .v-grid{grid-template-columns:1fr 1fr}
+    .a-grid{grid-template-columns:repeat(3,1fr)}
+    .co-grid{grid-template-columns:1fr;max-width:560px}
+  }
+  @media (max-width:820px){
+    .nav-links{display:none}
+    .burger{display:flex}
+    .mobile-menu{display:flex}
+    .hero{padding:150px 0 70px}
+    .hero-lead{font-size:17px}
+    .hero-strip{grid-template-columns:1fr 1fr}
+    .h-cell:nth-child(3){border-left:0}
+    .h-cell:nth-child(n+3){border-top:1px solid var(--hairline)}
+    section{padding:80px 0}
+    .t-row{grid-template-columns:44px 1fr;gap:14px;padding:20px 22px}
+    .t-time{grid-column:2;justify-self:start}
+    .stats{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .v-grid{grid-template-columns:1fr}
+    .a-grid{grid-template-columns:1fr 1fr}
+    .tab{padding:10px 16px;font-size:13.5px}
+    .deposit-note{flex-direction:column;align-items:flex-start;gap:14px}
+    .f-word{font-size:40px}
+  }
+</style>
+</head>
+<body>
+
+<div class="orbs" aria-hidden="true">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div>
+  <div class="orb orb-3"></div><div class="orb orb-4"></div>
+</div>
+
+<!-- плавающая навигация-капсула -->
+<nav class="nav glass" id="nav">
+  <!--
+    ЛОГОТИП: ниже — текстовая реконструкция фирменного знака (работает без картинок).
+    Хотите точный файл логотипа? Сохраните картинку как logo.png рядом с index.html,
+    раскомментируйте строку ниже и удалите блок <span class="logo">…</span>:
+    <img src="logo.png" alt="БУМ! Квиз! Нижний Новгород" style="height:40px">
+  -->
+  <a class="logo" href="#top" aria-label="БУМ! Квиз! Нижний Новгород — на главную">
+    <span class="logo-word">Б<span class="u">У</span>М<i>!</i> Квиз<i>!</i></span>
+    <small>Нижний Новгород</small>
+  </a>
+  <div class="nav-links">
+    <a href="#program">Программа</a>
+    <a href="#media">Медиа</a>
+    <a href="#partners">Партнёрам</a>
+    <a href="#contact" class="btn btn-solid btn-sm">Связаться</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu glass" id="mobileMenu">
+  <a href="#program">Программа</a>
+  <a href="#media">Медиа</a>
+  <a href="#partners">Партнёрам</a>
+  <a href="#contact">Контакты</a>
+</div>
+
+<main id="top">
+
+  <!-- ======== HERO ======== -->
+  <header class="hero">
+    <div class="container">
+      <span class="badge glass reveal">Клуб интеллектуальных развлечений · Нижний Новгород<i></i></span>
+      <h1 class="reveal" style="--d:.08s">Быть умным —<br><span class="h-italic grad">модно</span></h1>
+      <p class="hero-lead reveal" style="--d:.16s">
+        <b>БУМ! Квиз!</b> — квиз-шоу под ключ: <b>свой ведущий, диджей и аппаратура</b>,
+        авторская шоу-программа, командные квизы и подарки от партнёров.
+        <b>100+ гостей в зале</b> и пять часов — без единой скучной минуты.
+      </p>
+
+      <div class="scroll-cue reveal" style="--d:.24s"><span>Смотрите ниже</span><i></i></div>
+
+      <div class="hero-strip glass reveal" style="--d:.32s">
+        <div class="h-cell"><span class="h-k">Ближайший вечер</span><span class="h-v"><b data-saturday>—</b>, сб</span></div>
+        <div class="h-cell"><span class="h-k">Время</span><span class="h-v" data-event-time>18:00 — 23:00</span></div>
+        <div class="h-cell"><span class="h-k">Гостей в зале</span><span class="h-v">100+</span></div>
+        <div class="h-cell"><span class="h-k">Депозит гостя</span><span class="h-v">от 2 000 ₽</span></div>
+      </div>
+
+      <div class="chips reveal" style="--d:.4s">
+        <span class="chip glass"><span class="dmd"></span>Шоу-программа</span>
+        <span class="chip glass"><span class="dmd"></span>Свой ведущий</span>
+        <span class="chip glass"><span class="dmd"></span>Диджей и аппаратура</span>
+        <span class="chip glass"><span class="dmd"></span>Игры-квизы</span>
+        <span class="chip glass"><span class="dmd"></span>Подарки от партнёров</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======== ПРОГРАММА ======== -->
+  <section id="program">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label reveal">Что мы делаем</span>
+        <h2 class="reveal" style="--d:.06s">Пять часов — без единой паузы</h2>
+        <p class="sec-sub reveal" style="--d:.12s">
+          У каждого вечера есть сценарий, тайминг и команда, которая ведёт зал от welcome-зоны
+          до финальной дискотеки. Гостю нужно только прийти — всё остальное берём на себя.
+        </p>
+      </div>
+
+      <div class="track glass reveal" style="--d:.18s">
+        <div class="t-row"><span class="t-num">01</span><div><div class="t-name">Сбор гостей</div><p class="t-desc">Welcome-зона, музыка от нашего диджея, первые знакомства за столами.</p></div><span class="t-time">18:00 — 18:30</span></div>
+        <div class="t-row"><span class="t-num">02</span><div><div class="t-name">Открытие вечера</div><p class="t-desc">Ведущий знакомит зал, объявляет правила игры и представляет партнёров.</p></div><span class="t-time">18:30</span></div>
+        <div class="t-row"><span class="t-num">03</span><div><div class="t-name">Шоу-программа</div><p class="t-desc">Номера, которые мы готовим под каждый вечер отдельно. То, что не увидеть больше нигде.</p></div><span class="t-time">19:00</span></div>
+        <div class="t-row"><span class="t-num">04</span><div><div class="t-name">Квиз-баттл</div><p class="t-desc">Командные игры-квизы: скорость, везение и немного наглости. Проигравшие отвечают за тосты.</p></div><span class="t-time">20:00</span></div>
+        <div class="t-row"><span class="t-num">05</span><div><div class="t-name">Розыгрыш подарков</div><p class="t-desc">Партнёры привозят призы к каждому вечеру — от сертификатов до главных подарков.</p></div><span class="t-time">21:00</span></div>
+        <div class="t-row"><span class="t-num">06</span><div><div class="t-name">Дискотека</div><p class="t-desc">Сет от нашего диджея на нашей же аппаратуре. Танцуют все — ведущий уже не считает.</p></div><span class="t-time">21:30 — 23:00</span></div>
+      </div>
+
+      <div class="deposit-note glass reveal">
+        <span class="ruble">₽</span>
+        <p><b>Экономика вечера.</b> Вход для гостей свободный — они бронируют стол с депозитом от 2 000 ₽ на человека.
+        Площадка получает гарантированную субботнюю загрузку и выручку с кухни и бара, мы — полный зал и довольных гостей.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== ФОРМАТ / ЦИФРЫ ======== -->
+  <section id="format" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label reveal">Формат</span>
+        <h2 class="reveal" style="--d:.06s">Один вечер в месяц.<br>Зато какой</h2>
+        <p class="sec-sub reveal" style="--d:.12s">
+          Мы сознательно проводим один вечер в месяц — и каждый готовим как событие: своя команда,
+          своя аппаратура, свой сценарий под конкретный зал.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat glass reveal"><span class="stat-num" data-count="1" data-suffix="×">0×</span><span class="stat-cap">суббота в месяц — по чёткому расписанию</span></div>
+        <div class="stat glass reveal" style="--d:.06s"><span class="stat-num" data-count="5" data-suffix=" ч">0 ч</span><span class="stat-cap">непрерывной программы без пауз</span></div>
+        <div class="stat stat-accent reveal" style="--d:.12s"><span class="stat-num" data-count="100" data-suffix="+">0+</span><span class="stat-cap">гостей в зале на каждом вечере</span></div>
+        <div class="stat glass reveal" style="--d:.18s"><span class="stat-num" data-count="2000" data-prefix="от " data-suffix=" ₽">0 ₽</span><span class="stat-cap">депозит гостя — выручка остаётся у площадки</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== МЕДИА: ВИДЕО / АФИШИ ======== -->
+  <section id="media" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label reveal">Медиа</span>
+        <h2 class="reveal" style="--d:.06s">Увидьте, как это выглядит</h2>
+        <p class="sec-sub reveal" style="--d:.12s">Видео с вечеров и афиши наших событий.</p>
+      </div>
+
+      <div class="tabs-wrap reveal" style="--d:.18s">
+        <div class="tabs glass" role="tablist">
+          <button class="tab active" data-tab="videos" role="tab">Видео<span class="cnt" data-cnt="videos">0</span></button>
+          <button class="tab" data-tab="posters" role="tab">Афиши<span class="cnt" data-cnt="posters">0</span></button>
+        </div>
+      </div>
+
+      <div class="panel active" id="panel-videos"><div class="v-grid" id="videosGrid"></div></div>
+      <div class="panel" id="panel-posters"><div class="a-grid" id="postersGrid"></div></div>
+    </div>
+  </section>
+
+  <!-- ======== ПАРТНЁРСТВО ======== -->
+  <section id="partners" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label reveal">Партнёрство</span>
+        <h2 class="reveal" style="--d:.06s">Что это даёт вам</h2>
+      </div>
+
+      <div class="faq reveal" style="--d:.12s">
+        <div class="faq-item">
+          <button class="faq-q">Как вы работаете с площадками?<span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>Мы приезжаем со своей командой и аппаратурой: ведущий, диджей, свет и звук. От площадки нужен только зал и кухня — сценарий, программу и организацию берём на себя. Работаем по договору, один вечер в месяц, всегда по субботам.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Что получает площадка-партнёр?<span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>Гарантированно полный зал в субботний вечер. Гости приходят на депозиты от 2 000 ₽ на человека — вся выручка с кухни и бара остаётся у площадки. Мы приводим трафик, вы зарабатываете на нём.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Что получает бренд-партнёр?<span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>Живой контакт с аудиторией: упоминания со сцены, брендированный розыгрыш подарков и ваши продукты в руках 100+ гостей в течение пяти часов. Подарки от партнёров — обязательная часть каждого вечера.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Кто готовит программу?<span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>Своя команда: ведущий, диджей, сценаристы. Шоу-программу, квизы и тайминг мы готовим под каждый вечер отдельно, аппаратуру привозим с собой.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== КОНТАКТЫ ======== -->
+  <section id="contact">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label reveal">Контакты</span>
+        <h2 class="reveal" style="--d:.06s">Обсудим вашу субботу?</h2>
+      </div>
+
+      <div class="co-grid">
+        <div class="co-card glass reveal">
+          <span class="co-k">Площадкам</span>
+          <h4>Полный зал без хлопот</h4>
+          <p>Гарантированная загрузка в субботний вечер и ноль затрат на организацию: команда и аппаратура — наши, выручка с депозитов — ваша.</p>
+        </div>
+        <div class="co-card glass reveal" style="--d:.08s">
+          <span class="co-k">Брендам</span>
+          <h4>Живой контакт с залом</h4>
+          <p>Интеграция в шоу-программу и розыгрыш: ваш продукт в руках 100+ гостей в течение пяти часов, а не в ленте на три секунды.</p>
+        </div>
+        <div class="co-card glass reveal" style="--d:.16s">
+          <span class="co-k">Артистам</span>
+          <h4>Сцена и благодарный зал</h4>
+          <p>Своя аппаратура, свет и зал, который готов смотреть программу пять часов. Пишите — подберём вечер под ваш номер.</p>
+        </div>
+      </div>
+
+      <!-- TODO: замените контакты на свои -->
+      <div class="contact-list reveal" style="--d:.22s">
+        <a href="tel:+79990000000"><span class="dmd"></span>+7 999 000-00-00</a>
+        <a href="https://t.me/username" target="_blank" rel="noopener"><span class="dmd"></span>@username — телеграм</a>
+        <a href="mailto:hello@example.ru"><span class="dmd"></span>hello@example.ru</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <!-- полный логотип-блок; про замену на файл logo.png — см. комментарий в шапке -->
+        <a class="f-logo" href="#top">
+          <span class="f-word">Б<span>У</span>М</span>
+          <span class="f-slogan">быть умным модно</span>
+          <span class="f-sub">клуб интеллектуальных развлечений</span>
+        </a>
+        <p class="foot-note">Клуб интеллектуальных развлечений Нижнего Новгорода: квиз-шоу под ключ с шоу-программой, ведущим, диджеем и подарками от партнёров. Один вечер в месяц — и каждый как премьера.</p>
+      </div>
+    </div>
+    <p class="foot-copy">© 2025 БУМ! Квиз! · Нижний Новгород. Все вечера — по субботам.</p>
+  </div>
+</footer>
+
+<!-- ======== МОДАЛКА (лайтбокс для видео/афиш) ======== -->
+<div class="modal" id="mediaModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close aria-label="Закрыть">×</button>
+    <div class="lb-body" id="lbBody"></div>
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="toast-dot"></span><span id="toastText"></span></div>
+
+<script>
+/* ============================================================
+   НАСТРОЙКА ДАТЫ СЛЕДУЮЩЕГО МЕРОПРИЯТИЯ — МЕНЯЙТЕ ЗДЕСЬ
+   ============================================================
+   date: впишите дату в любом виде, как хотите видеть на сайте:
+         '14 декабря'  или  '14.12.2025'  или  '1 марта 2026'
+         Пусто ('') — сайт сам посчитает ближайшую субботу.
+   time: время проведения (появится в плашке на первом экране).
+   После мероприятия просто впишите новую дату и обновите файл
+   на хостинге — строка «Ближайший вечер» обновится сама.
+*/
+const NEXT_EVENT = {
+  date: '21 Ноября',              // например: '14 декабря'
+  time: '18:00 — 23:00'
+};
+
+/* ============================================================
+   МЕДИА-РАЗДЕЛ — видео и афиши
+   ------------------------------------------------------------
+   ВИДЕО: вставьте ссылку на ролик в поле url. Подходят
+   YouTube (youtube.com/watch?v=... или youtu.be/...) и VK
+   (vk.com/video-123_456). Обложка: src:'img/video-1.jpg'
+   (скриншот из ролика). Пока src не указан — фирменная заглушка.
+
+   АФИШИ: положите файлы рядом с сайтом и укажите путь:
+   src:'img/poster-1.jpg'. Пока src не указан — фирменная
+   заглушка. Вертикальные афиши смотрятся лучше всего (~2:3).
+
+   Новый элемент = скопировать блок { ... } и поставить запятую.
+   ============================================================ */
+const MEDIA = {
+  videos: [
+    {
+      title: 'Моменты №1',
+      desc: 'Главные номера шоу-программы и зал в финальной дискотеке.',
+      dur: '0:24', seed: 'bum-video-1', url: 'https://vkvideo.ru/video-200261793_456239020'
+    },
+    {
+      title: 'Моменты №2',
+      desc: 'Как команды собираются из незнакомых гостей — и не хотят расходиться.',
+      dur: '0:32', seed: 'bum-video-2', url: 'https://vkvideo.ru/video-200261793_456239019'
+    },
+    {
+      title: 'Моменты №3',
+      desc: 'Момент, ради которого зал встаёт с мест.',
+      dur: '1:01', seed: 'bum-video-3', url: 'https://vkvideo.ru/video-200261793_456239018'
+    },
+    {
+      title: 'Моменты №4',
+      desc: 'Моменты №4.',
+      dur: '0:26', seed: 'bum-video-4', url: 'https://vkvideo.ru/video-200261793_456239017'
+    }
+  ],
+  posters: [
+  { src: 'img/poster-1.jpg',  title: 'Афиша №1' },
+  { src: 'img/poster-2.jpg',  title: 'Афиша №2' },
+  { src: 'img/poster-3.jpg',  title: 'Афиша №3' },
+  { src: 'img/poster-4.jpg',  title: 'Афиша №4' },
+  { src: 'img/poster-5.jpg',  title: 'Афиша №5' },
+  { src: 'img/poster-6.jpg',  title: 'Афиша №6' },
+  { src: 'img/poster-7.jpg',  title: 'Розыгрыш №1' },
+  { src: 'img/poster-8.jpg',  title: 'Розыгрыш №2' },
+  { src: 'img/poster-9.jpg',  title: 'Розыгрыш №3' },
+  { src: 'img/poster-10.jpg', title: 'Афиша №10' },
+  { src: 'img/poster-11.jpg', title: 'Афиша №11' },
+  { src: 'img/poster-12.jpg', title: 'Афиша №12' }
+]
+};
+
+/* ============ ДАЛЬШЕ МОЖНО НИЧЕГО НЕ ТРОГАТЬ ============ */
+
+/* --- дата и время мероприятия из NEXT_EVENT --- */
+(function(){
+  let label;
+  if (NEXT_EVENT.date && NEXT_EVENT.date.trim()) {
+    label = NEXT_EVENT.date.trim();
+  } else {
+    const today = new Date();
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((6 - today.getDay() + 7) % 7));
+    label = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    if (d.toDateString() === today.toDateString()) label = 'сегодня, ' + label;
+  }
+  document.querySelectorAll('[data-saturday]').forEach(el => el.textContent = label);
+  document.querySelectorAll('[data-event-time]').forEach(el => el.textContent = NEXT_EVENT.time || '18:00 — 23:00');
+})();
+
+/* --- картинки: свой файл или встроенная заглушка (без внешних сервисов) --- */
+const placeholder = (w, h) => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">`
+    + `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">`
+    + `<stop offset="0" stop-color="#f8d7e6"/><stop offset="1" stop-color="#ead6f4"/></linearGradient></defs>`
+    + `<rect width="100%" height="100%" fill="url(#g)"/>`
+    + `<text x="50%" y="50%" font-family="Arial,sans-serif" font-weight="800" font-size="${Math.round(w/8)}" fill="#d21a5e" opacity=".4" text-anchor="middle" dominant-baseline="middle">БУМ!</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+};
+const imgSrc = (o, w, h) => o.src || placeholder(w, h);
+
+/* --- рендер медиа-панелей --- */
+(function(){
+  const esc = s => String(s).replace(/</g,'&lt;');
+
+  /* превью карточки: свой файл → миниатюра YouTube → живой кадр из VK → заглушка */
+  function videoThumb(v){
+    let m;
+    if (v.src) return { html:`<img src="${v.src}" alt="" loading="lazy">`, play:true };
+    if (v.url && (m = v.url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/)))
+      return { html:`<img src="https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg" alt="" loading="lazy">`, play:true };
+    if (v.url && /vk\.com|vkvideo\./.test(v.url)){
+      const embed = toEmbed(v.url);
+      if (embed) return {
+        html:`<iframe src="${embed}" title="${esc(v.title)}" loading="lazy" tabindex="-1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`,
+        play:false
+      };
+    }
+    return { html:`<img src="${placeholder(800,450)}" alt="">`, play:true };
+  }
+
+  document.getElementById('videosGrid').innerHTML = MEDIA.videos.map((v, i) => {
+    const t = videoThumb(v);
+    return `
+    <article class="v-card reveal" data-video="${i}" role="button" tabindex="0" aria-label="Открыть видео: ${esc(v.title)}">
+      <div class="v-thumb">
+        ${t.html}
+        ${t.play ? '<span class="v-play"><i></i></span>' : ''}
+        <span class="v-dur">${v.dur || ''}</span>
+      </div>
+      <h4>${esc(v.title)}</h4>
+      <p>${esc(v.desc || '')}</p>
+    </article>`;
+  }).join('');
+
+  document.getElementById('postersGrid').innerHTML = MEDIA.posters.map((p, i) => `
+    <figure class="a-item reveal" data-poster="${i}" role="button" tabindex="0" aria-label="Открыть афишу: ${esc(p.title || '')}">
+      <img src="${imgSrc(p, 700, 1050)}" alt="${esc(p.title || 'Афиша')}" loading="lazy">
+      <figcaption>${esc(p.title || '')}</figcaption>
+    </figure>`).join('');
+
+  document.querySelectorAll('[data-cnt]').forEach(el => {
+    el.textContent = (MEDIA[el.dataset.cnt] || []).length;
+  });
+
+  [['videos','videosGrid','видео'],['posters','postersGrid','афиши']].forEach(([k, id, word]) => {
+    if (!MEDIA[k].length) document.getElementById(id).innerHTML =
+      `<div class="media-empty glass">Здесь пока пусто — добавьте ${word} в массив MEDIA в начале скрипта ✶</div>`;
+  });
+})();
+
+/* --- вкладки --- */
+document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab.dataset.tab));
+}));
+
+/* --- лайтбокс / плеер --- */
+const modal = document.getElementById('mediaModal'), lbBody = document.getElementById('lbBody'), lbCap = document.getElementById('lbCap');
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(msg){
+  document.getElementById('toastText').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+}
+function toEmbed(url){
+  let m;
+  /* если вставили готовый код плеера из VK — достаём ссылку из него */
+  const fr = url.match(/src=["']([^"']+video_ext\.php[^"']*)["']/i);
+  if (fr) return fr[1];
+  if (/video_ext\.php/.test(url)) return url;
+  /* YouTube */
+  if ((m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/)))
+    return 'https://www.youtube.com/embed/' + m[1];
+  /* RUTUBE (запасной вариант) */
+  if ((m = url.match(/rutube\.ru\/video\/([\w]+)/)))
+    return 'https://rutube.ru/play/embed/' + m[1];
+  /* VK / VK Видео — плеер нового домена */
+  if ((m = url.match(/(?:vk\.com|vkvideo\.(?:ru|com))\/(?:video|clip)(-?\d+)_(\d+)/)))
+    return 'https://vkvideo.ru/video_ext.php?oid=' + m[1] + '&id=' + m[2] + '&hd=2';
+  return '';
+}
+
+function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; lbBody.innerHTML = ''; }
+
+function openVideo(i){
+  const v = MEDIA.videos[i]; if (!v) return;
+  if (!v.url) { showToast('Добавьте ссылку на видео в массив MEDIA — поле «url»'); return; }
+  const embed = toEmbed(v.url);
+  if (embed) {
+    const isShort = /\/shorts\//.test(v.url);
+    lbBody.innerHTML = `<iframe class="${isShort ? 'short' : ''}" src="${embed}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${v.title}"></iframe>`;
+  } else {
+    window.open(v.url, '_blank', 'noopener');
+    return;
+  }
+  lbCap.innerHTML = `<b>${v.title}</b>` + (v.desc ? `<span>${v.desc}</span>` : '');
+  openModal();
+}
+function openPoster(i){
+  const it = MEDIA.posters[i]; if (!it) return;
+  lbBody.innerHTML = `<img src="${imgSrc(it, 1200, 1800)}" alt="${it.title || 'Афиша'}">`;
+  lbCap.innerHTML = `<b>${it.title || ''}</b><span>Афиша вечера</span>`;
+  openModal();
+}
+
+document.addEventListener('click', e => {
+  const v = e.target.closest('[data-video]');
+  const a = e.target.closest('[data-poster]');
+  if (v) return openVideo(+v.dataset.video);
+  if (a) return openPoster(+a.dataset.poster);
+  if (e.target.closest('[data-close]')) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  const t = document.activeElement?.dataset;
+  if ((e.key === 'Enter' || e.key === ' ') && t && (t.video || t.poster)) {
+    e.preventDefault();
+    if (t.video) openVideo(+t.video);
+    else openPoster(+t.poster);
+  }
+});
+
+/* --- появление при скролле + счётчики --- */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); revealObserver.unobserve(en.target); } });
+}, { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    counterObserver.unobserve(en.target);
+    const el = en.target, target = +el.dataset.count;
+    const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    const t0 = performance.now(), dur = 1400;
+    (function tick(t){
+      const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = pre + Math.round(target * e).toLocaleString('ru-RU') + suf;
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
+
+/* --- аккордеон --- */
+document.querySelectorAll('.faq-q').forEach(btn => btn.addEventListener('click', () => {
+  const item = btn.parentElement, ans = item.querySelector('.faq-a');
+  const open = item.classList.toggle('open');
+  ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0';
+}));
+
+/* --- навигация + мобильное меню --- */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
+const burger = document.getElementById('burger'), mMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  const open = burger.classList.toggle('open');
+  mMenu.classList.toggle('open', open);
+});
+mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open'); mMenu.classList.remove('open');
+}));
+</script>
+</body>
+</html>
