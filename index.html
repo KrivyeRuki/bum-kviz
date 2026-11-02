@@ -178,6 +178,7 @@
   .v-card{cursor:pointer;text-align:left}
   .v-thumb{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
   .v-thumb iframe{position:absolute;left:50%;top:50%;width:180%;height:180%;transform:translate(-50%,-50%) scale(1.12);border:0;pointer-events:none}
+  .v-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
   .v-card:hover .v-thumb img{transform:scale(1.05)}
   .v-play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.22);transition:transform .25s}
   .v-card:hover .v-play{transform:scale(1.1)}
@@ -185,6 +186,16 @@
   .v-dur{position:absolute;right:10px;bottom:10px;background:rgba(20,20,22,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px}
   .v-card h4{margin-top:15px;font-weight:800;font-size:16.5px;letter-spacing:-.01em}
   .v-card p{color:var(--muted);font-size:14px;margin-top:4px}
+
+  /* фото */
+  .p-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;grid-auto-flow:dense;margin-top:40px}
+  .p-item{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1;cursor:pointer;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
+  .p-item.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+  .p-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .p-item:hover img{transform:scale(1.06)}
+  .p-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.55));color:#fff;font-size:13px;font-weight:700;opacity:0;transition:.3s}
+  .p-item:hover figcaption{opacity:1}
+  @media (hover:none){.p-item figcaption{opacity:1}}
 
   /* афиши */
   .a-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
@@ -258,6 +269,7 @@
   /* ---------- адаптив ---------- */
   @media (max-width:1000px){
     .v-grid{grid-template-columns:1fr 1fr}
+    .p-grid{grid-template-columns:repeat(3,1fr)}
     .a-grid{grid-template-columns:repeat(3,1fr)}
     .co-grid{grid-template-columns:1fr;max-width:560px}
   }
@@ -277,6 +289,7 @@
   }
   @media (max-width:640px){
     .v-grid{grid-template-columns:1fr}
+    .p-grid{grid-template-columns:1fr 1fr}
     .a-grid{grid-template-columns:1fr 1fr}
     .tab{padding:10px 16px;font-size:13.5px}
     .deposit-note{flex-direction:column;align-items:flex-start;gap:14px}
@@ -399,23 +412,25 @@
     </div>
   </section>
 
-  <!-- ======== МЕДИА: ВИДЕО / АФИШИ ======== -->
+  <!-- ======== МЕДИА: ВИДЕО / ФОТО / АФИШИ ======== -->
   <section id="media" style="padding-top:0">
     <div class="container">
       <div class="sec-head">
         <span class="sec-label reveal">Медиа</span>
         <h2 class="reveal" style="--d:.06s">Увидьте, как это выглядит</h2>
-        <p class="sec-sub reveal" style="--d:.12s">Видео с вечеров и афиши наших событий.</p>
+        <p class="sec-sub reveal" style="--d:.12s">Видео с вечеров, живые кадры из зала и афиши наших событий.</p>
       </div>
 
       <div class="tabs-wrap reveal" style="--d:.18s">
         <div class="tabs glass" role="tablist">
           <button class="tab active" data-tab="videos" role="tab">Видео<span class="cnt" data-cnt="videos">0</span></button>
+          <button class="tab" data-tab="photos" role="tab">Фото<span class="cnt" data-cnt="photos">0</span></button>
           <button class="tab" data-tab="posters" role="tab">Афиши<span class="cnt" data-cnt="posters">0</span></button>
         </div>
       </div>
 
       <div class="panel active" id="panel-videos"><div class="v-grid" id="videosGrid"></div></div>
+      <div class="panel" id="panel-photos"><div class="p-grid" id="photosGrid"></div></div>
       <div class="panel" id="panel-posters"><div class="a-grid" id="postersGrid"></div></div>
     </div>
   </section>
@@ -475,9 +490,8 @@
         </div>
       </div>
 
-      <!-- TODO: замените контакты на свои -->
       <div class="contact-list reveal" style="--d:.22s">
-        <a href="tel:+79990000000"><span class="dmd"></span>+7 930 700-74-41</a>
+        <a href="tel:+79307007441"><span class="dmd"></span>+7 930 700-74-41</a>
       </div>
     </div>
   </section>
@@ -500,7 +514,7 @@
   </div>
 </footer>
 
-<!-- ======== МОДАЛКА (лайтбокс для видео/афиш) ======== -->
+<!-- ======== МОДАЛКА (лайтбокс для видео/фото/афиш) ======== -->
 <div class="modal" id="mediaModal" aria-hidden="true">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-card">
@@ -515,30 +529,24 @@
 <script>
 /* ============================================================
    НАСТРОЙКА ДАТЫ СЛЕДУЮЩЕГО МЕРОПРИЯТИЯ — МЕНЯЙТЕ ЗДЕСЬ
-   ============================================================
-   date: впишите дату в любом виде, как хотите видеть на сайте:
-         '14 декабря'  или  '14.12.2025'  или  '1 марта 2026'
-         Пусто ('') — сайт сам посчитает ближайшую субботу.
-   time: время проведения (появится в плашке на первом экране).
-   После мероприятия просто впишите новую дату и обновите файл
-   на хостинге — строка «Ближайший вечер» обновится сама.
-*/
+   ============================================================ */
 const NEXT_EVENT = {
-  date: '21 Ноября',              // например: '14 декабря'
+  date: '21 ноября',
   time: '18:00 — 23:00'
 };
 
 /* ============================================================
-   МЕДИА-РАЗДЕЛ — видео и афиши
+   МЕДИА-РАЗДЕЛ — видео, фото и афиши
    ------------------------------------------------------------
-   ВИДЕО: вставьте ссылку на ролик в поле url. Подходят
-   YouTube (youtube.com/watch?v=... или youtu.be/...) и VK
-   (vk.com/video-123_456). Обложка: src:'img/video-1.jpg'
-   (скриншот из ролика). Пока src не указан — фирменная заглушка.
+   ВИДЕО: url — ссылка на ролик (VK / YouTube / RUTUBE).
+   src — обложка-превью ('img/video-1.jpg'); без неё карточка
+   покажет живой кадр из VK.
 
-   АФИШИ: положите файлы рядом с сайтом и укажите путь:
-   src:'img/poster-1.jpg'. Пока src не указан — фирменная
-   заглушка. Вертикальные афиши смотрятся лучше всего (~2:3).
+   ФОТО: файлы в папке img, src:'img/photo-1.jpg'.
+   caption — подпись. big:true — крупное фото 2×2 клетки
+   (ставь одному-двум самым удачным кадрам).
+
+   АФИШИ: src:'img/poster-1.jpg'. Пока src не указан — заглушка.
 
    Новый элемент = скопировать блок { ... } и поставить запятую.
    ============================================================ */
@@ -547,58 +555,56 @@ const MEDIA = {
     {
       title: 'Моменты №1',
       desc: 'Главные номера шоу-программы и зал в финальной дискотеке.',
-      dur: '0:24', seed: 'bum-video-1', url: 'https://vkvideo.ru/video-200261793_456239020'
+      dur: '0:24', url: 'https://vkvideo.ru/video-200261793_456239020'
     },
     {
       title: 'Моменты №2',
       desc: 'Как команды собираются из незнакомых гостей — и не хотят расходиться.',
-      dur: '0:32', seed: 'bum-video-2', url: 'https://vkvideo.ru/video-200261793_456239019'
+      dur: '0:32', url: 'https://vkvideo.ru/video-200261793_456239019'
     },
     {
       title: 'Моменты №3',
       desc: 'Момент, ради которого зал встаёт с мест.',
-      dur: '1:01', seed: 'bum-video-3', url: 'https://vkvideo.ru/video-200261793_456239018'
+      dur: '1:01', url: 'https://vkvideo.ru/video-200261793_456239018'
     },
     {
       title: 'Моменты №4',
-      desc: 'Моменты №4.',
-      dur: '0:26', seed: 'bum-video-4', url: 'https://vkvideo.ru/video-200261793_456239017'
+      desc: 'Финал вечера: зал на танцполе.',
+      dur: '0:26', url: 'https://vkvideo.ru/video-200261793_456239017'
     }
   ],
-
   photos: [
-    { src: 'img/photo-1.jpg', caption: 'Фото №1', big: true },
-    { src: 'img/photo-2.jpg', caption: 'Фото №2' },
-    { src: 'img/photo-3.jpg', caption: 'Фото №3' },
-    { src: 'img/photo-4.jpg', caption: 'Фото №4', big: true },
-    { src: 'img/photo-5.jpg', caption: 'Фото №5' },
-    { src: 'img/photo-6.jpg', caption: 'Фото №6' },
-    { src: 'img/photo-7.jpg', caption: 'Фото №7' },
-    { src: 'img/photo-8.jpg', caption: 'Фото №8' },
-    { src: 'img/photo-9.jpg', caption: 'Фото №9' },
+    { src: 'img/photo-1.jpg',  caption: 'Фото №1',  big: true },
+    { src: 'img/photo-2.jpg',  caption: 'Фото №2' },
+    { src: 'img/photo-3.jpg',  caption: 'Фото №3' },
+    { src: 'img/photo-4.jpg',  caption: 'Фото №4',  big: true },
+    { src: 'img/photo-5.jpg',  caption: 'Фото №5' },
+    { src: 'img/photo-6.jpg',  caption: 'Фото №6' },
+    { src: 'img/photo-7.jpg',  caption: 'Фото №7' },
+    { src: 'img/photo-8.jpg',  caption: 'Фото №8' },
+    { src: 'img/photo-9.jpg',  caption: 'Фото №9' },
     { src: 'img/photo-10.jpg', caption: 'Фото №10' },
     { src: 'img/photo-11.jpg', caption: 'Фото №11' },
     { src: 'img/photo-12.jpg', caption: 'Фото №12' },
     { src: 'img/photo-13.jpg', caption: 'Фото №13' },
     { src: 'img/photo-14.jpg', caption: 'Фото №14' },
     { src: 'img/photo-15.jpg', caption: 'Фото №15' },
-    { src: 'img/photo-16.jpg', caption: 'Фото №16' },
+    { src: 'img/photo-16.jpg', caption: 'Фото №16' }
   ],
-
   posters: [
-  { src: 'img/poster-1.jpg',  title: 'Афиша №1' },
-  { src: 'img/poster-2.jpg',  title: 'Афиша №2' },
-  { src: 'img/poster-3.jpg',  title: 'Афиша №3' },
-  { src: 'img/poster-4.jpg',  title: 'Афиша №4' },
-  { src: 'img/poster-5.jpg',  title: 'Афиша №5' },
-  { src: 'img/poster-6.jpg',  title: 'Афиша №6' },
-  { src: 'img/poster-7.jpg',  title: 'Розыгрыш №1' },
-  { src: 'img/poster-8.jpg',  title: 'Розыгрыш №2' },
-  { src: 'img/poster-9.jpg',  title: 'Розыгрыш №3' },
-  { src: 'img/poster-10.jpg', title: 'Афиша №10' },
-  { src: 'img/poster-11.jpg', title: 'Афиша №11' },
-  { src: 'img/poster-12.jpg', title: 'Афиша №12' }
-]
+    { src: 'img/poster-1.jpg',  title: 'Афиша №1' },
+    { src: 'img/poster-2.jpg',  title: 'Афиша №2' },
+    { src: 'img/poster-3.jpg',  title: 'Афиша №3' },
+    { src: 'img/poster-4.jpg',  title: 'Афиша №4' },
+    { src: 'img/poster-5.jpg',  title: 'Афиша №5' },
+    { src: 'img/poster-6.jpg',  title: 'Афиша №6' },
+    { src: 'img/poster-7.jpg',  title: 'Розыгрыш №1' },
+    { src: 'img/poster-8.jpg',  title: 'Розыгрыш №2' },
+    { src: 'img/poster-9.jpg',  title: 'Розыгрыш №3' },
+    { src: 'img/poster-10.jpg', title: 'Афиша №10' },
+    { src: 'img/poster-11.jpg', title: 'Афиша №11' },
+    { src: 'img/poster-12.jpg', title: 'Афиша №12' }
+  ]
 };
 
 /* ============ ДАЛЬШЕ МОЖНО НИЧЕГО НЕ ТРОГАТЬ ============ */
@@ -663,17 +669,25 @@ const imgSrc = (o, w, h) => o.src || placeholder(w, h);
     </article>`;
   }).join('');
 
+  document.getElementById('photosGrid').innerHTML = MEDIA.photos.map((p, i) => `
+    <figure class="p-item reveal ${p.big ? 'big' : ''}" data-photo="${i}" role="button" tabindex="0" aria-label="Открыть фото: ${esc(p.caption || '')}">
+      <img src="${imgSrc(p, 900, 900)}" alt="${esc(p.caption || 'Фото с вечера')}" loading="lazy">
+      <figcaption>${esc(p.caption || '')}</figcaption>
+    </figure>`).join('');
+
   document.getElementById('postersGrid').innerHTML = MEDIA.posters.map((p, i) => `
     <figure class="a-item reveal" data-poster="${i}" role="button" tabindex="0" aria-label="Открыть афишу: ${esc(p.title || '')}">
       <img src="${imgSrc(p, 700, 1050)}" alt="${esc(p.title || 'Афиша')}" loading="lazy">
       <figcaption>${esc(p.title || '')}</figcaption>
     </figure>`).join('');
 
+  /* счётчики на вкладках */
   document.querySelectorAll('[data-cnt]').forEach(el => {
     el.textContent = (MEDIA[el.dataset.cnt] || []).length;
   });
 
-  [['videos','videosGrid','видео'],['posters','postersGrid','афиши']].forEach(([k, id, word]) => {
+  /* пустая вкладка? */
+  [['videos','videosGrid','видео'],['photos','photosGrid','фото'],['posters','postersGrid','афиши']].forEach(([k, id, word]) => {
     if (!MEDIA[k].length) document.getElementById(id).innerHTML =
       `<div class="media-empty glass">Здесь пока пусто — добавьте ${word} в массив MEDIA в начале скрипта ✶</div>`;
   });
@@ -730,6 +744,12 @@ function openVideo(i){
   lbCap.innerHTML = `<b>${v.title}</b>` + (v.desc ? `<span>${v.desc}</span>` : '');
   openModal();
 }
+function openPhoto(i){
+  const it = MEDIA.photos[i]; if (!it) return;
+  lbBody.innerHTML = `<img src="${imgSrc(it, 1600, 1200)}" alt="${it.caption || 'Фото с вечера'}">`;
+  lbCap.innerHTML = `<b>${it.caption || ''}</b><span>Кадр с вечера</span>`;
+  openModal();
+}
 function openPoster(i){
   const it = MEDIA.posters[i]; if (!it) return;
   lbBody.innerHTML = `<img src="${imgSrc(it, 1200, 1800)}" alt="${it.title || 'Афиша'}">`;
@@ -739,17 +759,20 @@ function openPoster(i){
 
 document.addEventListener('click', e => {
   const v = e.target.closest('[data-video]');
+  const p = e.target.closest('[data-photo]');
   const a = e.target.closest('[data-poster]');
   if (v) return openVideo(+v.dataset.video);
+  if (p) return openPhoto(+p.dataset.photo);
   if (a) return openPoster(+a.dataset.poster);
   if (e.target.closest('[data-close]')) closeModal();
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
   const t = document.activeElement?.dataset;
-  if ((e.key === 'Enter' || e.key === ' ') && t && (t.video || t.poster)) {
+  if ((e.key === 'Enter' || e.key === ' ') && t && (t.video || t.photo || t.poster)) {
     e.preventDefault();
     if (t.video) openVideo(+t.video);
+    else if (t.photo) openPhoto(+t.photo);
     else openPoster(+t.poster);
   }
 });
