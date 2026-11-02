@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>БУМ! Квиз! — Нижний Новгород</title>
-<meta name="description" content="БУМ! Квиз! — клуб интеллектуальных развлечений в Нижнем Новгороде: квиз-шоу под ключ, шоу-программа, ведущий, диджей и подарки от партнёров. 100+ гостей, 5 часов, одна суббота в месяц. Быть умным модно!">
+<title>БУМ! Квиз! — Нижний Новгород · клуб интеллектуальных развлечений</title>
+<meta name="description" content="БУМ! Квиз! — клуб интеллектуальных развлечений в Нижнем Новгороде: квиз-шоу под ключ, шоу-программа, ведущий, диджей, лототрон и подарки от партнёров. 100+ гостей, 5 часов, одна суббота в месяц. Быть умным модно!">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23d21a5e'/%3E%3Cstop offset='1' stop-color='%23ff4d8d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-size='30' text-anchor='middle' font-family='Arial' font-weight='800' fill='white'%3EБ!%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
     --muted:#6e6e73;
     --hairline:rgba(0,0,0,.08);
     --blue:#0071e3;
-    --accent:#d21a5e;             /* фирменная малиновая из логотипа БУМ */
+    --accent:#d21a5e;
     --accent-2:#ff4d8d;
     --glass:rgba(255,255,255,.55);
     --glass-strong:rgba(255,255,255,.78);
@@ -38,7 +38,7 @@
   body::-webkit-scrollbar-thumb{background:#c9c9ce;border-radius:99px}
   .accent{color:var(--accent)}
   .dmd{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex:none}
-  a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
 
   /* ---------- живой градиентный фон ---------- */
   .orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(180deg,#fbfbfd 0%,#f2f2f7 100%)}
@@ -73,15 +73,12 @@
     transition:box-shadow .3s;
   }
   .nav.scrolled{box-shadow:0 12px 40px rgba(31,26,20,.16),inset 0 1px 0 rgba(255,255,255,.9)}
-
-  /* ---- логотип (CSS-реконструкция фирменного знака БУМ) ---- */
   .logo{display:flex;flex-direction:column;gap:4px;text-decoration:none;line-height:1}
   .logo-word{font-family:var(--logoFont);font-weight:800;font-size:20px;letter-spacing:.02em;color:var(--text);white-space:nowrap}
   .logo-word .u{color:var(--accent);display:inline-block;transform:scale(1.14);transform-origin:50% 72%}
   .logo-word i{color:var(--accent);font-style:normal}
   .logo small{font-size:8px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
-
-  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links{display:flex;gap:26px;align-items:center}
   .nav-links a{color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
   .burger{display:none;background:rgba(255,255,255,.5);border:1px solid var(--hairline);border-radius:999px;cursor:pointer;padding:11px 13px;flex-direction:column;gap:5px}
@@ -98,20 +95,28 @@
   .mobile-menu a:hover{background:rgba(255,255,255,.7)}
 
   /* ---------- кнопки ---------- */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:13px 26px;font-weight:700;font-size:14.5px;text-decoration:none;cursor:pointer;border:0;transition:transform .2s,background .2s,box-shadow .2s;font-family:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:13px 26px;font-weight:700;font-size:14.5px;text-decoration:none;cursor:pointer;border:0;transition:transform .2s,background .2s,box-shadow .2s,opacity .2s;font-family:inherit}
   .btn-solid{background:var(--text);color:#fff;box-shadow:0 8px 24px rgba(29,29,31,.22)}
   .btn-solid:hover{transform:translateY(-1px);background:#000}
   .btn-sm{padding:10px 20px;font-size:13.5px}
+  .btn.is-busy{opacity:.55;pointer-events:none}
 
   /* ---------- hero ---------- */
   .hero{padding:190px 0 90px;text-align:center;position:relative}
   .badge{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--muted)}
   .badge i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2.4s ease-out infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(210,26,94,.45)}70%{box-shadow:0 0 0 8px rgba(210,26,94,0)}100%{box-shadow:0 0 0 0 rgba(210,26,94,0)}}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,7.4vw,96px);line-height:1.06;letter-spacing:-.015em;margin:28px 0 0}
-  .h-italic{font-style:italic;font-weight:500}
-  .grad{background:linear-gradient(92deg,#d21a5e 10%,#ff4d8d 55%,#8b3aed);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-  @supports not (-webkit-background-clip:text){.grad{background:none;color:var(--accent)}}
+
+  /* ---- слоган «Быть умным — модно»: рисующийся SVG ---- */
+  .slogan{display:block;width:100%;max-width:980px;height:auto;margin:26px auto 0;overflow:visible}
+  .slogan-txt{
+    font-family:var(--serif);font-style:italic;font-weight:600;
+    font-size:120px;letter-spacing:-3px;white-space:nowrap;
+  }
+  .slogan-txt--stroke{fill:none;stroke:#d21a5e;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+  .slogan-txt--stroke tspan{stroke-dasharray:840;stroke-dashoffset:840}
+  .slogan-txt--fill{fill:url(#sloganGrad)}
+
   .hero-lead{max-width:680px;color:var(--muted);font-size:18.5px;margin:28px auto 0}
   .hero-lead b{color:var(--text);font-weight:700}
   .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:60px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
@@ -147,6 +152,44 @@
   .t-time{font-size:12px;font-weight:700;border:1px solid var(--hairline);border-radius:999px;padding:7px 14px;color:var(--muted);white-space:nowrap;background:rgba(255,255,255,.5);transition:.25s}
   .t-row:hover .t-time{border-color:var(--accent);color:var(--accent)}
 
+  /* ---------- лототрон (позиции шаров задаёт физика в JS) ---------- */
+  .lotto{display:grid;grid-template-columns:1.2fr auto;gap:44px;align-items:center;max-width:960px;margin:32px auto 0;border-radius:28px;padding:34px 38px;text-align:left}
+  .lotto-k{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px}
+  .lotto h3{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:-.01em}
+  .lotto p{color:var(--muted);font-size:15px;margin-top:12px;max-width:460px}
+  .lotto .btn{margin-top:22px}
+  .lotto-drum{
+    position:relative;width:250px;height:250px;border-radius:50%;flex:none;
+    background:radial-gradient(80% 80% at 35% 30%,rgba(255,255,255,.92),rgba(255,255,255,.35));
+    border:1px solid var(--glass-border);
+    box-shadow:var(--shadow),inset 0 12px 34px rgba(31,26,20,.10);
+    overflow:hidden;
+  }
+  .lotto-ball{
+    position:absolute;left:50%;top:50%;width:30px;height:30px;border-radius:50%;
+    display:grid;place-items:center;font-weight:800;color:var(--accent);
+    background:radial-gradient(circle at 32% 28%,#fff 0%,#ffe4ef 55%,#ffc3da 100%);
+    border:1px solid rgba(210,26,94,.28);
+    box-shadow:0 4px 10px rgba(31,26,20,.14);
+    will-change:transform;user-select:none;pointer-events:none;
+  }
+  .lotto-ball.win{
+    background:linear-gradient(135deg,#d21a5e,#ff4d8d);color:#fff;border-color:#fff;
+    box-shadow:0 0 0 3px #fff,0 8px 22px rgba(210,26,94,.55);
+  }
+  .lotto-result{
+    position:absolute;left:50%;top:50%;z-index:5;
+    width:118px;height:118px;border-radius:50%;
+    background:linear-gradient(135deg,#d21a5e,#ff4d8d);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    box-shadow:0 16px 44px rgba(210,26,94,.45);
+    transform:translate(-50%,-50%) scale(0);
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .lotto-result b{font-family:var(--logoFont);font-weight:800;font-size:42px;line-height:1}
+  .lotto-result span{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+  .lotto-result.show{transform:translate(-50%,-50%) scale(1)}
+
   .deposit-note{border-radius:26px;padding:26px 30px;display:flex;gap:20px;align-items:center;max-width:960px;margin:32px auto 0;text-align:left}
   .ruble{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#d21a5e,#ff4d8d);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px;flex:none;box-shadow:0 10px 24px rgba(210,26,94,.35)}
   .deposit-note p{color:var(--muted);font-size:15px}
@@ -161,20 +204,34 @@
   .stat-accent .stat-num{color:#fff}
   .stat-accent .stat-cap{color:rgba(255,255,255,.85)}
 
-  /* ---------- медиа: вкладки ---------- */
-  .tabs-wrap{display:flex;justify-content:center;margin-top:44px}
-  .tabs{display:inline-flex;gap:6px;padding:6px;border-radius:999px}
-  .tab{padding:11px 22px;border-radius:999px;font-weight:700;font-size:14.5px;color:var(--muted);cursor:pointer;border:0;background:transparent;transition:.25s;font-family:inherit;display:inline-flex;gap:8px;align-items:center}
-  .tab .cnt{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.06);color:var(--muted)}
-  .tab.active{background:var(--text);color:#fff;box-shadow:0 8px 24px rgba(29,29,31,.25)}
-  .tab.active .cnt{background:rgba(255,255,255,.18);color:#fff}
+  /* ---------- спирали-галереи ---------- */
+  .spiral-wrap{
+    position:relative;height:600px;max-width:1180px;margin:52px auto 0;
+    border-radius:32px;overflow:hidden;perspective:1000px;
+    background:radial-gradient(120% 90% at 50% 50%,rgba(255,255,255,.55),rgba(255,255,255,.15));
+    border:1px solid var(--glass-border);
+    touch-action:pan-y;
+  }
+  .spiral-wrap--posters{height:660px}
+  .spiral-stage{position:absolute;inset:0;transform-style:preserve-3d}
+  .spiral-item{
+    position:absolute;top:50%;left:50%;margin:0;
+    border-radius:10px;overflow:hidden;cursor:pointer;
+    border:1px solid rgba(255,255,255,.4);
+    box-shadow:0 14px 38px rgba(31,26,20,.25);
+    will-change:transform,opacity,filter;
+    backface-visibility:hidden;
+  }
+  .spiral-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;-webkit-user-drag:none}
+  .spiral-hint{display:flex;justify-content:center;gap:10px;align-items:center;margin-top:22px;color:var(--muted);font-size:13px}
+  .spiral-hint .dmd{width:6px;height:6px}
 
-  .panel{display:none}
-  .panel.active{display:block;animation:panelIn .5s cubic-bezier(.16,1,.3,1)}
-  @keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .gal-sub{margin-top:90px}
+  .gal-sub h3{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.4vw,36px);text-align:center;letter-spacing:-.01em}
+  .gal-sub p{color:var(--muted);text-align:center;max-width:560px;margin:12px auto 0;font-size:16px}
 
-  /* видео */
-  .v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  /* ---------- видео ---------- */
+  .v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
   .v-card{cursor:pointer;text-align:left}
   .v-thumb{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
   .v-thumb iframe{position:absolute;left:50%;top:50%;width:180%;height:180%;transform:translate(-50%,-50%) scale(1.12);border:0;pointer-events:none}
@@ -186,24 +243,6 @@
   .v-dur{position:absolute;right:10px;bottom:10px;background:rgba(20,20,22,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px}
   .v-card h4{margin-top:15px;font-weight:800;font-size:16.5px;letter-spacing:-.01em}
   .v-card p{color:var(--muted);font-size:14px;margin-top:4px}
-
-  /* фото */
-  .p-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;grid-auto-flow:dense;margin-top:40px}
-  .p-item{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1;cursor:pointer;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
-  .p-item.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-  .p-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
-  .p-item:hover img{transform:scale(1.06)}
-  .p-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.55));color:#fff;font-size:13px;font-weight:700;opacity:0;transition:.3s}
-  .p-item:hover figcaption{opacity:1}
-  @media (hover:none){.p-item figcaption{opacity:1}}
-
-  /* афиши */
-  .a-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
-  .a-item{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:2/3;cursor:pointer;box-shadow:var(--shadow);border:1px solid var(--glass-border);transition:transform .3s}
-  .a-item:hover{transform:translateY(-5px)}
-  .a-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
-  .a-item:hover img{transform:scale(1.05)}
-  .a-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:13px;font-weight:700}
 
   .media-empty{border-radius:26px;padding:50px;text-align:center;color:var(--muted);margin-top:40px}
 
@@ -228,8 +267,6 @@
 
   footer{padding:56px 0 48px}
   .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start;border-top:1px solid var(--hairline);padding-top:44px}
-
-  /* ---- полный логотип-блок в футере ---- */
   .f-logo{display:inline-flex;flex-direction:column;gap:7px;text-decoration:none;line-height:1}
   .f-word{font-family:var(--logoFont);font-weight:800;font-size:48px;color:var(--text);letter-spacing:.02em}
   .f-word span{color:var(--accent)}
@@ -270,9 +307,9 @@
   /* ---------- адаптив ---------- */
   @media (max-width:1000px){
     .v-grid{grid-template-columns:1fr 1fr}
-    .p-grid{grid-template-columns:repeat(3,1fr)}
-    .a-grid{grid-template-columns:repeat(3,1fr)}
     .co-grid{grid-template-columns:1fr;max-width:560px}
+    .spiral-wrap{height:500px;border-radius:26px}
+    .spiral-wrap--posters{height:560px}
   }
   @media (max-width:820px){
     .nav-links{display:none}
@@ -287,14 +324,18 @@
     .t-row{grid-template-columns:44px 1fr;gap:14px;padding:20px 22px}
     .t-time{grid-column:2;justify-self:start}
     .stats{grid-template-columns:1fr 1fr}
+    .lotto{grid-template-columns:1fr;gap:28px;padding:26px 24px;text-align:center}
+    .lotto p{margin-left:auto;margin-right:auto}
+    .lotto-drum{margin:0 auto}
   }
   @media (max-width:640px){
     .v-grid{grid-template-columns:1fr}
-    .p-grid{grid-template-columns:1fr 1fr}
-    .a-grid{grid-template-columns:1fr 1fr}
-    .tab{padding:10px 16px;font-size:13.5px}
     .deposit-note{flex-direction:column;align-items:flex-start;gap:14px}
     .f-word{font-size:40px}
+    .spiral-wrap{height:420px;border-radius:22px}
+    .spiral-wrap--posters{height:480px}
+    .spiral-hint{flex-direction:column;gap:6px;text-align:center}
+    .lotto-drum{width:210px;height:210px}
   }
 </style>
 </head>
@@ -307,19 +348,14 @@
 
 <!-- плавающая навигация-капсула -->
 <nav class="nav glass" id="nav">
-  <!--
-    ЛОГОТИП: ниже — текстовая реконструкция фирменного знака (работает без картинок).
-    Хотите точный файл логотипа? Сохраните картинку как logo.png рядом с index.html,
-    раскомментируйте строку ниже и удалите блок <span class="logo">…</span>:
-    <img src="logo.png" alt="БУМ! Квиз! Нижний Новгород" style="height:40px">
-  -->
   <a class="logo" href="#top" aria-label="БУМ! Квиз! Нижний Новгород — на главную">
     <span class="logo-word">Б<span class="u">У</span>М<i>!</i> Квиз<i>!</i></span>
     <small>Нижний Новгород</small>
   </a>
   <div class="nav-links">
     <a href="#program">Программа</a>
-    <a href="#media">Медиа</a>
+    <a href="#gallery">Галерея</a>
+    <a href="#media">Видео</a>
     <a href="#partners">Партнёрам</a>
     <a href="#contact" class="btn btn-solid btn-sm">Связаться</a>
   </div>
@@ -327,7 +363,8 @@
 </nav>
 <div class="mobile-menu glass" id="mobileMenu">
   <a href="#program">Программа</a>
-  <a href="#media">Медиа</a>
+  <a href="#gallery">Галерея</a>
+  <a href="#media">Видео</a>
   <a href="#partners">Партнёрам</a>
   <a href="#contact">Контакты</a>
 </div>
@@ -338,10 +375,25 @@
   <header class="hero">
     <div class="container">
       <span class="badge glass reveal">Клуб интеллектуальных развлечений · Нижний Новгород<i></i></span>
-      <h1 class="reveal" style="--d:.08s">Быть умным <br><span class="h-italic grad">модно</span></h1>
+
+      <h1 style="margin:0" aria-label="Быть умным — модно">
+        <svg class="slogan reveal" id="slogan" style="--d:.08s" viewBox="0 0 900 150" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="sloganGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#d21a5e"/>
+              <stop offset=".55" stop-color="#ff4d8d"/>
+              <stop offset="1" stop-color="#8b3aed"/>
+            </linearGradient>
+            <clipPath id="sloganWipe"><rect id="sloganWipeRect" x="0" y="0" width="0" height="999"/></clipPath>
+          </defs>
+          <text id="sloganStroke" class="slogan-txt slogan-txt--stroke" x="0" y="110"></text>
+          <text class="slogan-txt slogan-txt--fill" x="0" y="110" clip-path="url(#sloganWipe)">Быть умным — модно</text>
+        </svg>
+      </h1>
+
       <p class="hero-lead reveal" style="--d:.16s">
         <b>БУМ! Квиз!</b> — квиз-шоу под ключ: <b>свой ведущий, диджей и аппаратура</b>,
-        авторская шоу-программа, командные квизы и подарки от партнёров.
+        живой вокал, командные квизы и <b>лототрон с подарками от партнёров</b>.
         <b>100+ гостей в зале</b> и пять часов — без единой скучной минуты.
       </p>
 
@@ -349,7 +401,7 @@
 
       <div class="hero-strip glass reveal" style="--d:.32s">
         <div class="h-cell"><span class="h-k">Ближайший вечер</span><span class="h-v"><b data-saturday>—</b>, сб</span></div>
-        <div class="h-cell"><span class="h-k">Время</span><span class="h-v" data-event-time>18:00 — 23:00</span></div>
+        <div class="h-cell"><span class="h-k">Сбор · старт</span><span class="h-v"><b>17:30</b> · <b>18:00</b></span></div>
         <div class="h-cell"><span class="h-k">Гостей в зале</span><span class="h-v">100+</span></div>
         <div class="h-cell"><span class="h-k">Депозит гостя</span><span class="h-v">от 2 000 ₽</span></div>
       </div>
@@ -357,8 +409,10 @@
       <div class="chips reveal" style="--d:.4s">
         <span class="chip glass"><span class="dmd"></span>Шоу-программа</span>
         <span class="chip glass"><span class="dmd"></span>Свой ведущий</span>
+        <span class="chip glass"><span class="dmd"></span>Ведущий поёт</span>
         <span class="chip glass"><span class="dmd"></span>Диджей и аппаратура</span>
         <span class="chip glass"><span class="dmd"></span>Игры-квизы</span>
+        <span class="chip glass"><span class="dmd"></span>Лототрон</span>
         <span class="chip glass"><span class="dmd"></span>Подарки от партнёров</span>
       </div>
     </div>
@@ -371,18 +425,32 @@
         <span class="sec-label reveal">Что мы делаем</span>
         <h2 class="reveal" style="--d:.06s">Пять часов — без единой паузы</h2>
         <p class="sec-sub reveal" style="--d:.12s">
-          У каждого вечера есть сценарий, тайминг и команда, которая ведёт зал от welcome-зоны
-          до финальной дискотеки. Гостю нужно только прийти — всё остальное берём на себя.
+          Сбор гостей с 17:30, старт в 18:00. У каждого вечера есть сценарий, тайминг и команда,
+          которая ведёт зал от welcome-зоны до финальной дискотеки.
         </p>
       </div>
 
       <div class="track glass reveal" style="--d:.18s">
-        <div class="t-row"><span class="t-num">01</span><div><div class="t-name">Сбор гостей</div><p class="t-desc">Welcome-зона, музыка от нашего диджея, первые знакомства за столами.</p></div><span class="t-time">18:00 — 18:30</span></div>
-        <div class="t-row"><span class="t-num">02</span><div><div class="t-name">Открытие вечера</div><p class="t-desc">Ведущий знакомит зал, объявляет правила игры и представляет партнёров.</p></div><span class="t-time">18:30</span></div>
-        <div class="t-row"><span class="t-num">03</span><div><div class="t-name">Шоу-программа</div><p class="t-desc">Номера, которые мы готовим под каждый вечер отдельно. То, что не увидеть больше нигде.</p></div><span class="t-time">19:00</span></div>
-        <div class="t-row"><span class="t-num">04</span><div><div class="t-name">Квиз-баттл</div><p class="t-desc">Командные игры-квизы: скорость, везение и немного наглости. Проигравшие отвечают за тосты.</p></div><span class="t-time">20:00</span></div>
-        <div class="t-row"><span class="t-num">05</span><div><div class="t-name">Розыгрыш подарков</div><p class="t-desc">Партнёры привозят призы к каждому вечеру — от сертификатов до главных подарков.</p></div><span class="t-time">21:00</span></div>
-        <div class="t-row"><span class="t-num">06</span><div><div class="t-name">Дискотека</div><p class="t-desc">Сет от нашего диджея на нашей же аппаратуре. Танцуют все — ведущий уже не считает.</p></div><span class="t-time">21:30 — 23:00</span></div>
+        <div class="t-row"><span class="t-num">01</span><div><div class="t-name">Сбор гостей</div><p class="t-desc">Welcome-зона, музыка от нашего диджея, первые знакомства за столами. Приходите заранее — успеете поужинать и занять лучшие места.</p></div><span class="t-time">17:30 — 18:00</span></div>
+        <div class="t-row"><span class="t-num">02</span><div><div class="t-name">Открытие вечера</div><p class="t-desc">Ведущий знакомит зал с правилами, представляет команду и партнёров — чьи подарки сегодня разыграет лототрон.</p></div><span class="t-time">18:00</span></div>
+        <div class="t-row"><span class="t-num">03</span><div><div class="t-name">Шоу-программа</div><p class="t-desc">Ведущий поёт вживую — живые вокальные номера — плюс постановочные номера, которые мы готовим под каждый вечер отдельно. То, что не увидеть больше нигде.</p></div><span class="t-time">18:30</span></div>
+        <div class="t-row"><span class="t-num">04</span><div><div class="t-name">Квиз-баттл</div><p class="t-desc">Командные игры-квизы: скорость, везение и немного наглости. Проигравшие отвечают за тосты.</p></div><span class="t-time">19:30</span></div>
+        <div class="t-row"><span class="t-num">05</span><div><div class="t-name">Розыгрыш подарков</div><p class="t-desc">Подарки от партнёров достаёт лототрон: прозрачный барабан, шары с номерами — честный шанс у каждого. Момент, когда зал встаёт с мест.</p></div><span class="t-time">20:30</span></div>
+        <div class="t-row"><span class="t-num">06</span><div><div class="t-name">Дискотека</div><p class="t-desc">Сет от нашего диджея на нашей же аппаратуре. Танцуют все — ведущий уже не считает.</p></div><span class="t-time">21:00 — 23:00</span></div>
+      </div>
+
+      <!-- ======== ЛОТОТРОН: ФИЗИЧЕСКОЕ ДЕМО ======== -->
+      <div class="lotto glass reveal" style="--d:.24s">
+        <div class="lotto-info">
+          <span class="lotto-k">Механика розыгрыша</span>
+          <h3>Подарки разыгрывает лототрон</h3>
+          <p>Прозрачный барабан, шары с номерами — никакой предвзятости, шанс у каждого гостя в зале.
+          Барабан здесь настоящий: шары падают, кувыркаются и оседают по законам физики. Крутаните сами.</p>
+          <button class="btn btn-solid" id="lottoBtn" type="button">Крутить барабан</button>
+        </div>
+        <div class="lotto-drum" id="lottoDrum" aria-hidden="true">
+          <div class="lotto-result" id="lottoResult"><b>7</b><span>выпал номер</span></div>
+        </div>
       </div>
 
       <div class="deposit-note glass reveal">
@@ -413,26 +481,44 @@
     </div>
   </section>
 
-  <!-- ======== МЕДИА: ВИДЕО / ФОТО / АФИШИ ======== -->
+  <!-- ======== ГАЛЕРЕЯ: ДВЕ СПИРАЛИ ======== -->
+  <section id="gallery" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label reveal">Галерея</span>
+        <h2 class="reveal" style="--d:.06s">Живые кадры с вечеров</h2>
+        <p class="sec-sub reveal" style="--d:.12s">
+          Несколько мгновений из зала — листаются сами. Наведите курсор, чтобы остановить,
+          нажмите на кадр — откроется крупно.
+        </p>
+      </div>
+
+      <div class="spiral-wrap reveal" style="--d:.18s" id="spiralPhotos">
+        <div class="spiral-stage"></div>
+      </div>
+      <p class="spiral-hint reveal" style="--d:.24s"><span class="dmd"></span>Задержите курсор — спираль остановится<span class="dmd"></span>Клик — фото откроется крупно</p>
+
+      <div class="gal-sub reveal">
+        <h3>Афиши наших вечеров</h3>
+        <p>Каждый вечер — новая афиша. Листайте коллекцию: так выглядит наш стиль до того, как зал наполнится гостями.</p>
+      </div>
+
+      <div class="spiral-wrap spiral-wrap--posters reveal" id="spiralPosters">
+        <div class="spiral-stage"></div>
+      </div>
+      <p class="spiral-hint reveal"><span class="dmd"></span>Клик по афише — откроется крупно</p>
+    </div>
+  </section>
+
+  <!-- ======== МЕДИА: ВИДЕО ======== -->
   <section id="media" style="padding-top:0">
     <div class="container">
       <div class="sec-head">
         <span class="sec-label reveal">Медиа</span>
-        <h2 class="reveal" style="--d:.06s">Увидьте, как это выглядит</h2>
-        <p class="sec-sub reveal" style="--d:.12s">Видео с вечеров, живые кадры из зала и афиши наших событий.</p>
+        <h2 class="reveal" style="--d:.06s">Видео с вечеров</h2>
+        <p class="sec-sub reveal" style="--d:.12s">Короткие моменты: шоу-номера, квизы, розыгрыши и финальная дискотека.</p>
       </div>
-
-      <div class="tabs-wrap reveal" style="--d:.18s">
-        <div class="tabs glass" role="tablist">
-          <button class="tab active" data-tab="videos" role="tab">Видео<span class="cnt" data-cnt="videos">0</span></button>
-          <button class="tab" data-tab="photos" role="tab">Фото<span class="cnt" data-cnt="photos">0</span></button>
-          <button class="tab" data-tab="posters" role="tab">Афиши<span class="cnt" data-cnt="posters">0</span></button>
-        </div>
-      </div>
-
-      <div class="panel active" id="panel-videos"><div class="v-grid" id="videosGrid"></div></div>
-      <div class="panel" id="panel-photos"><div class="p-grid" id="photosGrid"></div></div>
-      <div class="panel" id="panel-posters"><div class="a-grid" id="postersGrid"></div></div>
+      <div class="v-grid" id="videosGrid"></div>
     </div>
   </section>
 
@@ -455,11 +541,11 @@
         </div>
         <div class="faq-item">
           <button class="faq-q">Что получает бренд-партнёр?<span class="faq-ic">+</span></button>
-          <div class="faq-a"><p>Живой контакт с аудиторией: упоминания со сцены, брендированный розыгрыш подарков и ваши продукты в руках 100+ гостей в течение пяти часов. Подарки от партнёров — обязательная часть каждого вечера.</p></div>
+          <div class="faq-a"><p>Живой контакт с аудиторией: упоминания со сцены, розыгрыш ваших подарков через лототрон и ваши продукты в руках 100+ гостей в течение пяти часов. Подарки от партнёров — обязательная часть каждого вечера.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">Кто готовит программу?<span class="faq-ic">+</span></button>
-          <div class="faq-a"><p>Своя команда: ведущий, диджей, сценаристы. Шоу-программу, квизы и тайминг мы готовим под каждый вечер отдельно, аппаратуру привозим с собой.</p></div>
+          <div class="faq-a"><p>Своя команда: ведущий (поёт вживую), диджей, сценаристы. Шоу-программу, квизы, лототрон и тайминг мы готовим под каждый вечер отдельно, аппаратуру привозим с собой.</p></div>
         </div>
       </div>
     </div>
@@ -482,7 +568,7 @@
         <div class="co-card glass reveal" style="--d:.08s">
           <span class="co-k">Брендам</span>
           <h4>Живой контакт с залом</h4>
-          <p>Интеграция в шоу-программу и розыгрыш: ваш продукт в руках 100+ гостей в течение пяти часов, а не в ленте на три секунды.</p>
+          <p>Интеграция в шоу-программу и розыгрыш через лототрон: ваш продукт в руках 100+ гостей в течение пяти часов, а не в ленте на три секунды.</p>
         </div>
         <div class="co-card glass reveal" style="--d:.16s">
           <span class="co-k">Артистам</span>
@@ -502,20 +588,19 @@
   <div class="container">
     <div class="foot-grid">
       <div>
-        <!-- полный логотип-блок; про замену на файл logo.png — см. комментарий в шапке -->
         <a class="f-logo" href="#top">
           <span class="f-word">Б<span>У</span>М</span>
           <span class="f-slogan">быть умным модно</span>
           <span class="f-sub">клуб интеллектуальных развлечений</span>
         </a>
-        <p class="foot-note">Клуб интеллектуальных развлечений Нижнего Новгорода: квиз-шоу под ключ с шоу-программой, ведущим, диджеем и подарками от партнёров. Один вечер в месяц — и каждый как премьера.</p>
+        <p class="foot-note">Клуб интеллектуальных развлечений Нижнего Новгорода: квиз-шоу под ключ с шоу-программой, поющим ведущим, диджеем и лототроном с подарками от партнёров. Один вечер в месяц — и каждый как премьера.</p>
       </div>
     </div>
     <p class="foot-copy">© 2026 БУМ! Квиз! · Нижний Новгород. Все вечера — по субботам.</p>
   </div>
 </footer>
 
-<!-- ======== МОДАЛКА (лайтбокс для видео/фото/афиш) ======== -->
+<!-- ======== МОДАЛКА (лайтбокс) ======== -->
 <div class="modal" id="mediaModal" aria-hidden="true">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-card">
@@ -533,23 +618,14 @@
    ============================================================ */
 const NEXT_EVENT = {
   date: '21 ноября',
-  time: '18:00 — 23:00'
+  time: '17:30 — 23:00'
 };
 
+/* ЭКОНОМНЫЙ РЕЖИМ ДЛЯ ТЕЛЕФОНОВ */
+const LIGHT_THUMBS = false;
+
 /* ============================================================
-   МЕДИА-РАЗДЕЛ — видео, фото и афиши
-   ------------------------------------------------------------
-   ВИДЕО: url — ссылка на ролик (VK / YouTube / RUTUBE).
-   src — обложка-превью ('img/video-1.jpg'); без неё карточка
-   покажет живой кадр из VK.
-
-   ФОТО: файлы в папке img, src:'img/photo-1.jpg'.
-   caption — подпись. big:true — крупное фото 2×2 клетки
-   (ставь одному-двум самым удачным кадрам).
-
-   АФИШИ: src:'img/poster-1.jpg'. Пока src не указан — заглушка.
-
-   Новый элемент = скопировать блок { ... } и поставить запятую.
+   МЕДИА — видео, фото (спираль №1), афиши (спираль №2)
    ============================================================ */
 const MEDIA = {
   videos: [
@@ -610,7 +686,7 @@ const MEDIA = {
 
 /* ============ ДАЛЬШЕ МОЖНО НИЧЕГО НЕ ТРОГАТЬ ============ */
 
-/* --- дата и время мероприятия из NEXT_EVENT --- */
+/* --- дата и время мероприятия --- */
 (function(){
   let label;
   if (NEXT_EVENT.date && NEXT_EVENT.date.trim()) {
@@ -622,10 +698,11 @@ const MEDIA = {
     if (d.toDateString() === today.toDateString()) label = 'сегодня, ' + label;
   }
   document.querySelectorAll('[data-saturday]').forEach(el => el.textContent = label);
-  document.querySelectorAll('[data-event-time]').forEach(el => el.textContent = NEXT_EVENT.time || '18:00 — 23:00');
+  document.querySelectorAll('[data-event-time]').forEach(el => el.textContent = NEXT_EVENT.time || '17:30 — 23:00');
 })();
 
-/* --- картинки: свой файл или встроенная заглушка (без внешних сервисов) --- */
+/* --- утилиты --- */
+const esc = s => String(s).replace(/</g,'&lt;');
 const placeholder = (w, h) => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">`
     + `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">`
@@ -636,17 +713,373 @@ const placeholder = (w, h) => {
 };
 const imgSrc = (o, w, h) => o.src || placeholder(w, h);
 
-/* --- рендер медиа-панелей --- */
+/* ============================================================
+   СЛОГАН «БЫТЬ УМНЫМ — МОДНО»
+   ============================================================ */
 (function(){
-  const esc = s => String(s).replace(/</g,'&lt;');
+  const svg = document.getElementById('slogan');
+  if (!svg) return;
+  const strokeText = document.getElementById('sloganStroke');
+  const wipeRect = document.getElementById('sloganWipeRect');
+  if (!strokeText || !wipeRect) return;
+  const TEXT = 'Быть умным — модно';
+  const FONT = 120, DASH = FONT * 7;
+  const DRAW = 1.6, STAGGER = .05, FILL_DELAY = .25, FILL_DUR = .9;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let raf, done = false, W = 900;
 
-  /* превью карточки: свой файл → миниатюра YouTube → живой кадр из VK → заглушка */
+  strokeText.innerHTML = [...TEXT].map(ch => `<tspan>${ch === ' ' ? '\u00A0' : ch}</tspan>`).join('');
+  const chars = [...strokeText.children];
+
+  function measure(){
+    let b;
+    try { b = strokeText.getBBox(); } catch(e){ return; }
+    if (!b || !b.width) return;
+    const pad = Math.max(3, FONT * .1);
+    svg.setAttribute('viewBox', `${(b.x-pad).toFixed(1)} ${(b.y-pad).toFixed(1)} ${(b.width+pad*2).toFixed(1)} ${(b.height+pad*2).toFixed(1)}`);
+    wipeRect.setAttribute('x', (b.x-pad).toFixed(1));
+    wipeRect.setAttribute('y', (b.y-pad).toFixed(1));
+    wipeRect.setAttribute('height', (b.height+pad*2).toFixed(1));
+    W = b.width + pad*2;
+  }
+  function showInstant(){
+    chars.forEach(ch => { ch.style.transition='none'; ch.style.strokeDashoffset = 0; });
+    wipeRect.setAttribute('width', W);
+    done = true;
+  }
+  function play(){
+    if (reduced) { measure(); showInstant(); return; }
+    cancelAnimationFrame(raf);
+    measure();
+    done = false;
+    chars.forEach(ch => { ch.style.transition = 'none'; ch.style.strokeDashoffset = DASH; });
+    wipeRect.setAttribute('width', 0);
+    void svg.getBoundingClientRect();
+    chars.forEach((ch, i) => {
+      ch.style.transition = `stroke-dashoffset ${DRAW}s cubic-bezier(.45,0,.2,1) ${(i*STAGGER).toFixed(2)}s`;
+      ch.style.strokeDashoffset = 0;
+    });
+    const t0 = performance.now() + (DRAW + chars.length*STAGGER + FILL_DELAY) * 1000;
+    (function tick(t){
+      const p = Math.min(Math.max((t - t0) / (FILL_DUR*1000), 0), 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      wipeRect.setAttribute('width', (W * e).toFixed(1));
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else done = true;
+    })(performance.now());
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(play, 80));
+  else setTimeout(play, 250);
+  svg.addEventListener('pointerenter', () => { if (done) play(); });
+})();
+
+/* ============================================================
+   ЛОТОТРОН — настоящая физика.
+   Гравитация, упругие удары о стенку и друг о друга, трение.
+   При загрузке шары падают и укладываются на дне барабана.
+   Кнопка раскручивает барабан: завихрение + стенка тащит шары.
+   После остановки шары оседают — выпадает номер, шар подсвечен.
+   ============================================================ */
+(function(){
+  const drum   = document.getElementById('lottoDrum');
+  const btn    = document.getElementById('lottoBtn');
+  const result = document.getElementById('lottoResult');
+  if (!drum || !btn || !result) return;
+  const resultNum = result.querySelector('b');
+
+  const N = 30;               /* шаров в барабане */
+  const G = 2400;             /* гравитация, px/с² */
+  const REST_BALL = .42;      /* упругость соударений шаров */
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W = 250, H = 250, R = 120, BALL = 30, r = 15;
+  const balls = [];
+  let visible = true, lastWin = null;
+
+  function size(){
+    W = drum.clientWidth || 250;
+    H = drum.clientHeight || 250;
+    R = Math.min(W, H) / 2 - 4;
+    BALL = Math.max(22, Math.min(34, Math.round(W * .13)));
+    r = BALL / 2;
+    for (const b of balls){
+      b.el.style.width  = BALL + 'px';
+      b.el.style.height = BALL + 'px';
+      b.el.style.fontSize = Math.round(BALL * .36) + 'px';
+    }
+  }
+
+  for (let i = 0; i < N; i++){
+    const el = document.createElement('span');
+    el.className = 'lotto-ball';
+    el.textContent = i + 1;
+    drum.appendChild(el);
+    const a = Math.random() * Math.PI * 2;
+    const d = Math.random() * (R * .55);
+    balls.push({
+      el,
+      x: Math.cos(a) * d,
+      y: -Math.abs(Math.sin(a)) * d - 10,   /* стартуют вверху — падают на дно */
+      vx: (Math.random() * 2 - 1) * 60,
+      vy: 0,
+      ang: Math.random() * 360
+    });
+  }
+  size();
+  new ResizeObserver(size).observe(drum);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: .05 }).observe(drum);
+
+  /* режим без анимаций: укладываем шары ровной кучей, кнопка просто выдаёт номер */
+  if (reduced){
+    const cols = Math.max(3, Math.floor(R * 1.5 / BALL));
+    let placed = 0;
+    for (let row = 0; placed < N; row++){
+      for (let c = 0; c < cols && placed < N; c++){
+        const b = balls[placed++];
+        b.x = (c - (cols - 1) / 2) * BALL * 1.02;
+        b.y = R - r - 2 - row * BALL * .9;
+        b.el.style.transform = `translate(-50%,-50%) translate(${b.x}px,${b.y}px)`;
+      }
+    }
+    btn.addEventListener('click', () => {
+      const n = 1 + Math.floor(Math.random() * N);
+      resultNum.textContent = n;
+      if (lastWin) lastWin.classList.remove('win');
+      lastWin = balls[n - 1].el; lastWin.classList.add('win');
+      result.classList.add('show');
+    });
+    return;
+  }
+
+  let phase = 'idle';          /* idle → spin → settle → idle */
+  let phaseT = 0, energy = 0, last = performance.now();
+
+  btn.addEventListener('click', () => {
+    if (phase !== 'idle') return;
+    phase = 'spin'; phaseT = 1900;
+    result.classList.remove('show');
+    if (lastWin) lastWin.classList.remove('win');
+    btn.classList.add('is-busy');
+  });
+
+  function step(dt, e){
+    for (const b of balls){
+      b.vy += G * dt;                                          /* гравитация */
+      if (e > 0){                                              /* барабан крутится */
+        const d = Math.hypot(b.x, b.y) || 1;
+        const swirl = e * 2800;                                /* завихрение вокруг центра */
+        b.vx += (-b.y / d) * swirl * dt + (Math.random() * 2 - 1) * e * 1100 * dt;
+        b.vy += ( b.x / d) * swirl * dt * .55 + (Math.random() * 2 - 1) * e * 1100 * dt;
+        b.vy -= e * 1100 * dt * Math.random();                 /* подброс вверх */
+      } else {                                                 /* воздух тормозит */
+        b.vx *= Math.pow(.12, dt);
+        b.vy *= Math.pow(.3, dt);
+      }
+      b.x += b.vx * dt;
+      b.y += b.vy * dt;
+
+      const dist = Math.hypot(b.x, b.y);
+      const maxD = R - r - 1;
+      if (dist > maxD){                                        /* удар о стенку */
+        const nx = b.x / dist, ny = b.y / dist;
+        b.x = nx * maxD; b.y = ny * maxD;
+        const vn = b.vx * nx + b.vy * ny;
+        if (vn > 0){
+          const rest = e > 0 ? .55 : .3;
+          b.vx -= (1 + rest) * vn * nx;
+          b.vy -= (1 + rest) * vn * ny;
+        }
+        if (e > 0){                                            /* стенка крутится — тащит шар */
+          const tx = -ny, ty = nx;
+          const vt = b.vx * tx + b.vy * ty;
+          b.vx += (e * 950 - vt) * .4 * tx;
+          b.vy += (e * 950 - vt) * .4 * ty;
+        }
+      }
+      const sp = Math.hypot(b.vx, b.vy);                       /* предохранитель скорости */
+      if (sp > 2600){ b.vx *= 2600 / sp; b.vy *= 2600 / sp; }
+    }
+    /* соударения шаров друг с другом */
+    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++){
+      const a = balls[i], c = balls[j];
+      const dx = c.x - a.x, dy = c.y - a.y;
+      const d = Math.hypot(dx, dy), min = BALL * .98;
+      if (d < min && d > .001){
+        const nx = dx / d, ny = dy / d, ov = (min - d) / 2;
+        a.x -= nx * ov; a.y -= ny * ov;
+        c.x += nx * ov; c.y += ny * ov;
+        const rvn = (c.vx - a.vx) * nx + (c.vy - a.vy) * ny;
+        if (rvn < 0){
+          const imp = -(1 + REST_BALL) * rvn / 2;
+          a.vx -= imp * nx; a.vy -= imp * ny;
+          c.vx += imp * nx; c.vy += imp * ny;
+        }
+      }
+    }
+  }
+
+  function frame(t){
+    requestAnimationFrame(frame);
+    const dt = Math.min((t - last) / 1000, .033);
+    last = t;
+    if (!visible) return;                 /* барабан не на экране — не тратим CPU */
+
+    if (phase === 'spin'){
+      phaseT -= dt * 1000;
+      if (phaseT <= 0){ phase = 'settle'; phaseT = 750; }
+    } else if (phase === 'settle'){
+      phaseT -= dt * 1000;
+      if (phaseT <= 0){
+        phase = 'idle';
+        btn.classList.remove('is-busy');
+        const n = 1 + Math.floor(Math.random() * N);
+        resultNum.textContent = n;
+        lastWin = balls[n - 1].el;
+        lastWin.classList.add('win');
+        result.classList.add('show');
+      }
+    }
+
+    const target = phase === 'spin' ? 1 : 0;
+    energy += (target - energy) * (1 - Math.exp(-dt * 6));
+
+    for (let s = 0; s < 2; s++) step(dt / 2, energy);        /* 2 подшага — стабильность */
+
+    for (const b of balls){
+      b.ang += (b.vx / r) * dt * 50;                         /* качение по дну */
+      b.el.style.transform =
+        `translate(-50%,-50%) translate(${b.x.toFixed(1)}px,${b.y.toFixed(1)}px) rotate(${(b.ang % 360).toFixed(1)}deg)`;
+    }
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ============================================================
+   БЕСКОНЕЧНАЯ 3D-СПИРАЛЬ — универсальная функция.
+   ФИКС: без setPointerCapture — клики по карточкам работают,
+   drag мышью сохранён, drag не открывает лайтбокс.
+   ============================================================ */
+function createSpiral(sel, items, cfg){
+  const wrap = document.querySelector(sel);
+  if (!wrap) return;
+  const stage = wrap.querySelector('.spiral-stage');
+  if (!stage) return;
+  if (!items.length){
+    wrap.innerHTML = `<div class="media-empty glass" style="border-radius:26px">${cfg.empty}</div>`;
+    return;
+  }
+  stage.innerHTML = items.map((p, i) => `
+    <figure class="spiral-item" data-${cfg.key}="${i}" role="button" tabindex="0"
+            aria-label="Открыть: ${esc(p.caption || p.title || '')}"
+            style="width:${cfg.cardW}px;height:${cfg.cardH}px">
+      <img src="${imgSrc(p, cfg.thumbW, cfg.thumbH)}" alt="" loading="${i < 6 ? 'eager' : 'lazy'}" draggable="false"
+           style="filter:grayscale(${cfg.grayscale})">
+    </figure>`).join('');
+  const cards = [...stage.children], N = cards.length, half = N / 2;
+
+  let progress = 0, target = 0, auto = 0;
+  let hovered = false, visible = true, bounds = null;
+  let dragging = false, dragMoved = false, lastY = 0;
+  let last = performance.now();
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const modulo = (v, d) => ((v % d) + d) % d;
+  const smooth = (a, b, v) => { const x = Math.min(Math.max((v - a) / ((b - a) || 1), 0), 1); return x * x * (3 - 2 * x); };
+
+  const measure = () => { bounds = wrap.getBoundingClientRect(); };
+  measure();
+  new ResizeObserver(measure).observe(wrap);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: .02 }).observe(wrap);
+
+  wrap.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovered = true; });
+  wrap.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hovered = false; dragging = false; } });
+  wrap.addEventListener('pointerdown', e => {
+    lastY = e.clientY;
+    if (e.pointerType === 'mouse') { dragging = true; dragMoved = false; }
+    else hovered = true;
+  });
+  wrap.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dy = e.clientY - lastY; lastY = e.clientY;
+    if (Math.abs(dy) > 3) dragMoved = true;
+    target -= dy / Math.max(cfg.spacing, 1);
+  });
+  const end = e => { dragging = false; hovered = !!(e && e.pointerType === 'mouse'); };
+  wrap.addEventListener('pointerup', end);
+  wrap.addEventListener('pointercancel', end);
+  /* если это был drag, а не клик — не открывать лайтбокс */
+  wrap.addEventListener('click', e => {
+    if (dragMoved) { e.stopPropagation(); e.preventDefault(); dragMoved = false; }
+  }, true);
+
+  function frame(t){
+    const dt = Math.min((t - last) / 1000, .05);
+    last = t;
+    const desired = (visible && !reduced && !hovered) ? cfg.speed : 0;
+    auto += (desired - auto) * (1 - Math.exp(-dt * 7));
+    target += auto * dt;
+    progress += (target - progress) * (1 - Math.exp(-dt * 11));
+
+    const Wd = Math.max(bounds ? bounds.width : 1, 1);
+    const Hd = Math.max(bounds ? bounds.height : 1, 1);
+    const fit = Math.min(1, Wd / (cfg.cardW * 2.8), Hd / (cfg.cardH * 2.35));
+    const R = Math.min(cfg.radius, Math.max(72, Wd * .36)) * fit;
+    const fadeStart = Math.min(Math.max(1 - cfg.edgeFade, 0), .98);
+
+    for (let i = 0; i < N; i++){
+      const card = cards[i];
+      let off = i - progress;
+      off = modulo(off + half, N) - half;
+
+      const edge = Math.min(Math.abs(off) / Math.max(half, 1), 1);
+      const opacity = 1 - smooth(fadeStart, 1, edge);
+      const focus = 1 - Math.min(Math.abs(off) / Math.max(cfg.perTurn * .65, 1), 1);
+      const scale = (1 + (cfg.centerScale - 1) * focus) * fit;
+      const ang = off * (360 / cfg.perTurn) * Math.PI / 180;
+      const x = Math.sin(ang) * R;
+      const z = Math.cos(ang) * R;
+      const depthScale = Math.min(Math.max(cfg.perspective / Math.max(cfg.perspective - z, 1), .72), 1.45);
+      const blur = cfg.edgeBlur * smooth(.35, 1, edge);
+      const depth = (z / Math.max(R, 1) + 1) / 2;
+
+      card.style.transform = `translate(-50%,-50%) translate3d(${x.toFixed(1)}px, ${(off * cfg.spacing * fit).toFixed(1)}px, 0) scale(${(scale * depthScale).toFixed(3)})`;
+      card.style.opacity = opacity.toFixed(3);
+      card.style.filter = blur > .01 ? `blur(${blur.toFixed(2)}px)` : '';
+      card.style.zIndex = String(Math.round(depth * 100000) + i);
+      card.style.pointerEvents = opacity > .25 ? 'auto' : 'none';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* спираль фото: квадратные карточки, ЦВЕТНЫЕ (grayscale: 0) */
+createSpiral('#spiralPhotos', MEDIA.photos, {
+  speed: .55, radius: 170, cardW: 100, cardH: 100, spacing: 60,
+  perspective: 1000, perTurn: 7, centerScale: 1.2,
+  edgeFade: .3, edgeBlur: 6, grayscale: 0,
+  key: 'photo', thumbW: 500, thumbH: 500,
+  empty: 'Добавьте фото в массив MEDIA — спираль оживёт ✶'
+});
+
+/* спираль афиш: вертикальные карточки 2:3, цветные */
+createSpiral('#spiralPosters', MEDIA.posters, {
+  speed: .45, radius: 210, cardW: 100, cardH: 150, spacing: 70,
+  perspective: 1000, perTurn: 7, centerScale: 1.15,
+  edgeFade: .3, edgeBlur: 6, grayscale: 0,
+  key: 'poster', thumbW: 400, thumbH: 600,
+  empty: 'Добавьте афиши в массив MEDIA — спираль оживёт ✶'
+});
+
+/* --- рендер видео-сеток --- */
+(function(){
   function videoThumb(v){
     let m;
     if (v.src) return { html:`<img src="${v.src}" alt="" loading="lazy">`, play:true };
     if (v.url && (m = v.url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/)))
       return { html:`<img src="https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg" alt="" loading="lazy">`, play:true };
     if (v.url && /vk\.com|vkvideo\./.test(v.url)){
+      if (LIGHT_THUMBS && matchMedia('(pointer:coarse)').matches)
+        return { html:`<img src="${placeholder(800,450)}" alt="">`, play:true };
       const embed = toEmbed(v.url);
       if (embed) return {
         html:`<iframe src="${embed}" title="${esc(v.title)}" loading="lazy" tabindex="-1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`,
@@ -670,35 +1103,9 @@ const imgSrc = (o, w, h) => o.src || placeholder(w, h);
     </article>`;
   }).join('');
 
-  document.getElementById('photosGrid').innerHTML = MEDIA.photos.map((p, i) => `
-    <figure class="p-item reveal ${p.big ? 'big' : ''}" data-photo="${i}" role="button" tabindex="0" aria-label="Открыть фото: ${esc(p.caption || '')}">
-      <img src="${imgSrc(p, 900, 900)}" alt="${esc(p.caption || 'Фото с вечера')}" loading="lazy">
-      <figcaption>${esc(p.caption || '')}</figcaption>
-    </figure>`).join('');
-
-  document.getElementById('postersGrid').innerHTML = MEDIA.posters.map((p, i) => `
-    <figure class="a-item reveal" data-poster="${i}" role="button" tabindex="0" aria-label="Открыть афишу: ${esc(p.title || '')}">
-      <img src="${imgSrc(p, 700, 1050)}" alt="${esc(p.title || 'Афиша')}" loading="lazy">
-      <figcaption>${esc(p.title || '')}</figcaption>
-    </figure>`).join('');
-
-  /* счётчики на вкладках */
-  document.querySelectorAll('[data-cnt]').forEach(el => {
-    el.textContent = (MEDIA[el.dataset.cnt] || []).length;
-  });
-
-  /* пустая вкладка? */
-  [['videos','videosGrid','видео'],['photos','photosGrid','фото'],['posters','postersGrid','афиши']].forEach(([k, id, word]) => {
-    if (!MEDIA[k].length) document.getElementById(id).innerHTML =
-      `<div class="media-empty glass">Здесь пока пусто — добавьте ${word} в массив MEDIA в начале скрипта ✶</div>`;
-  });
+  if (!MEDIA.videos.length) document.getElementById('videosGrid').innerHTML =
+    `<div class="media-empty glass">Здесь пока пусто — добавьте видео в массив MEDIA в начале скрипта ✶</div>`;
 })();
-
-/* --- вкладки --- */
-document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
-  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
-  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab.dataset.tab));
-}));
 
 /* --- лайтбокс / плеер --- */
 const modal = document.getElementById('mediaModal'), lbBody = document.getElementById('lbBody'), lbCap = document.getElementById('lbCap');
@@ -712,22 +1119,17 @@ function showToast(msg){
 }
 function toEmbed(url){
   let m;
-  /* если вставили готовый код плеера из VK — достаём ссылку из него */
   const fr = url.match(/src=["']([^"']+video_ext\.php[^"']*)["']/i);
   if (fr) return fr[1];
   if (/video_ext\.php/.test(url)) return url;
-  /* YouTube */
   if ((m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/)))
     return 'https://www.youtube.com/embed/' + m[1];
-  /* RUTUBE (запасной вариант) */
   if ((m = url.match(/rutube\.ru\/video\/([\w]+)/)))
     return 'https://rutube.ru/play/embed/' + m[1];
-  /* VK / VK Видео — плеер нового домена */
   if ((m = url.match(/(?:vk\.com|vkvideo\.(?:ru|com))\/(?:video|clip)(-?\d+)_(\d+)/)))
     return 'https://vkvideo.ru/video_ext.php?oid=' + m[1] + '&id=' + m[2] + '&hd=2';
   return '';
 }
-
 function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
 function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; lbBody.innerHTML = ''; }
 
@@ -783,7 +1185,6 @@ const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); revealObserver.unobserve(en.target); } });
 }, { threshold: .1 });
 document.querySelectorAll('.reveal').forEach(el => {
-  /* элементы, уже видимые при загрузке, показываем мгновенно — без анимации */
   if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('noanim', 'in');
   else revealObserver.observe(el);
 });
