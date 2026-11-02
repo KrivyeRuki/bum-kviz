@@ -195,7 +195,7 @@
   .deposit-note p{color:var(--muted);font-size:15px}
   .deposit-note b{color:var(--text)}
 
-  /* ---------- бенто-статистика ---------- */
+  /* ---------- бенто-статистика (цифры статичные, без анимаций) ---------- */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:52px auto 0}
   .stat{border-radius:26px;padding:34px 28px}
   .stat-num{font-family:var(--serif);font-weight:700;font-size:clamp(44px,5vw,62px);letter-spacing:-.02em;line-height:1;display:block}
@@ -461,7 +461,7 @@
     </div>
   </section>
 
-  <!-- ======== ФОРМАТ / ЦИФРЫ ======== -->
+  <!-- ======== ФОРМАТ / ЦИФРЫ (цифры статичные) ======== -->
   <section id="format" style="padding-top:0">
     <div class="container">
       <div class="sec-head">
@@ -473,10 +473,10 @@
         </p>
       </div>
       <div class="stats">
-        <div class="stat glass reveal"><span class="stat-num" data-count="1" data-suffix="×">0×</span><span class="stat-cap">суббота в месяц — по чёткому расписанию</span></div>
-        <div class="stat glass reveal" style="--d:.06s"><span class="stat-num" data-count="5" data-suffix=" ч">0 ч</span><span class="stat-cap">непрерывной программы без пауз</span></div>
-        <div class="stat stat-accent reveal" style="--d:.12s"><span class="stat-num" data-count="100" data-suffix="+">0+</span><span class="stat-cap">гостей в зале на каждом вечере</span></div>
-        <div class="stat glass reveal" style="--d:.18s"><span class="stat-num" data-count="2000" data-prefix="от " data-suffix=" ₽">0 ₽</span><span class="stat-cap">депозит гостя — выручка остаётся у площадки</span></div>
+        <div class="stat glass reveal"><span class="stat-num">1×</span><span class="stat-cap">суббота в месяц — по чёткому расписанию</span></div>
+        <div class="stat glass reveal" style="--d:.06s"><span class="stat-num">5 ч</span><span class="stat-cap">непрерывной программы без пауз</span></div>
+        <div class="stat stat-accent reveal" style="--d:.12s"><span class="stat-num">100+</span><span class="stat-cap">гостей в зале на каждом вечере</span></div>
+        <div class="stat glass reveal" style="--d:.18s"><span class="stat-num">от 2 000 ₽</span><span class="stat-cap">депозит гостя — выручка остаётся у площадки</span></div>
       </div>
     </div>
   </section>
@@ -775,10 +775,6 @@ const imgSrc = (o, w, h) => o.src || placeholder(w, h);
 
 /* ============================================================
    ЛОТОТРОН — настоящая физика.
-   Гравитация, упругие удары о стенку и друг о друга, трение.
-   При загрузке шары падают и укладываются на дне барабана.
-   Кнопка раскручивает барабан: завихрение + стенка тащит шары.
-   После остановки шары оседают — выпадает номер, шар подсвечен.
    ============================================================ */
 (function(){
   const drum   = document.getElementById('lottoDrum');
@@ -956,8 +952,6 @@ const imgSrc = (o, w, h) => o.src || placeholder(w, h);
 
 /* ============================================================
    БЕСКОНЕЧНАЯ 3D-СПИРАЛЬ — универсальная функция.
-   ФИКС: без setPointerCapture — клики по карточкам работают,
-   drag мышью сохранён, drag не открывает лайтбокс.
    ============================================================ */
 function createSpiral(sel, items, cfg){
   const wrap = document.querySelector(sel);
@@ -1006,7 +1000,6 @@ function createSpiral(sel, items, cfg){
   const end = e => { dragging = false; hovered = !!(e && e.pointerType === 'mouse'); };
   wrap.addEventListener('pointerup', end);
   wrap.addEventListener('pointercancel', end);
-  /* если это был drag, а не клик — не открывать лайтбокс */
   wrap.addEventListener('click', e => {
     if (dragMoved) { e.stopPropagation(); e.preventDefault(); dragMoved = false; }
   }, true);
@@ -1052,7 +1045,7 @@ function createSpiral(sel, items, cfg){
   requestAnimationFrame(frame);
 }
 
-/* спираль фото: квадратные карточки, ЦВЕТНЫЕ (grayscale: 0) */
+/* спираль фото: квадратные карточки, цветные */
 createSpiral('#spiralPhotos', MEDIA.photos, {
   speed: .55, radius: 170, cardW: 100, cardH: 100, spacing: 60,
   perspective: 1000, perTurn: 7, centerScale: 1.2,
@@ -1180,7 +1173,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* --- появление при скролле + счётчики --- */
+/* --- появление при скролле --- */
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); revealObserver.unobserve(en.target); } });
 }, { threshold: .1 });
@@ -1188,22 +1181,6 @@ document.querySelectorAll('.reveal').forEach(el => {
   if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('noanim', 'in');
   else revealObserver.observe(el);
 });
-
-const counterObserver = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (!en.isIntersecting) return;
-    counterObserver.unobserve(en.target);
-    const el = en.target, target = +el.dataset.count;
-    const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
-    const t0 = performance.now(), dur = 1400;
-    (function tick(t){
-      const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
-      el.textContent = pre + Math.round(target * e).toLocaleString('ru-RU') + suf;
-      if (p < 1) requestAnimationFrame(tick);
-    })(t0);
-  });
-}, { threshold: .5 });
-document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
 
 /* --- аккордеон --- */
 document.querySelectorAll('.faq-q').forEach(btn => btn.addEventListener('click', () => {
